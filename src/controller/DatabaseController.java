@@ -1,3 +1,5 @@
+package controller;
+
 class DatabaseController {
     /* 
         gonna leave this blank cause we dont need to format it like 

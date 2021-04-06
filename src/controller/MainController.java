@@ -1,3 +1,6 @@
+package controller;
+import model.*;
+
 class MainController {
     private Customer customer;
     private Salesperson salesperson;

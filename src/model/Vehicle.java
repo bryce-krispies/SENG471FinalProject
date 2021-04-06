@@ -1,4 +1,6 @@
-class Vehicle {
+package model;
+
+public class Vehicle {
     private String model;
     private String exteriorColour;
     private String interiorColour;

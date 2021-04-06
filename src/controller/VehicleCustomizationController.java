@@ -1,3 +1,6 @@
+package controller;
+import model.*;
+
 class VehicleCustomizationController {
     private Vehicle customerVehicle;
 
