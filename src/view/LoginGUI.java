@@ -19,7 +19,6 @@ public class LoginGUI extends JFrame {
 		super("Login");
 		setUndecorated(true);
 		setSize(width, height);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(1, 2));
 
@@ -57,5 +56,13 @@ public class LoginGUI extends JFrame {
 
 	public void addLoginListener(ActionListener loginListener) {
 		loginButton.addActionListener(loginListener);
+	}
+
+	public JTextField getIDField() {
+		return idField;
+	}
+
+	public JPasswordField getPasswordField() {
+		return passwordField;
 	}
 }

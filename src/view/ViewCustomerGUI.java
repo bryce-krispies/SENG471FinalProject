@@ -1,5 +1,7 @@
 package view;
 
-public class ViewCustomerGUI {
+import javax.swing.JFrame;
+
+public class ViewCustomerGUI extends JFrame {
 	
 }

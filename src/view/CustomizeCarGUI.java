@@ -1,5 +1,9 @@
 package view;
 
-public class CustomizeCarGUI {
-	
+import javax.swing.JFrame;
+
+public class CustomizeCarGUI extends JFrame {
+	public CustomizeCarGUI(int width, int height) {
+		
+	}
 }

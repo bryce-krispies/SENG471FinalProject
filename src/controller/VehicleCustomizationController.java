@@ -1,26 +1,16 @@
 package controller;
 import model.*;
+import view.CustomizeCarGUI;
 
 class VehicleCustomizationController {
-    private Vehicle customerVehicle;
 
-    public VehicleCustomizationController(Vehicle customerVehicle) {
-        this.customerVehicle = customerVehicle;
+    private MainController main;
+	private CustomizeCarGUI customizeCarMenu;
+
+    public VehicleCustomizationController(MainController main) {
+        this.main = main;
+
+        customizeCarMenu = new CustomizeCarGUI(1200, 800);
     }
 
-    public void chooseCarModel() {
-
-    }
-
-    public void changeExteriorColour() {
-
-    }
-
-    public void changeInteriorColour() {
-
-    }
-
-    public void chooseCarView() {
-        
-    }
 }

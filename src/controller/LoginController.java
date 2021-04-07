@@ -3,6 +3,10 @@ package controller;
 import view.LoginGUI;
 import java.awt.event.*;
 
+import javax.swing.JOptionPane;
+
+import model.Employee;
+
 public class LoginController {
 	
 	private MainController main;
@@ -18,17 +22,24 @@ public class LoginController {
 	private class LoginListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//perform login event handler stuff here
+			if(loginMenu.getIDField().getText().isBlank() || loginMenu.getPasswordField().getPassword().length < 1) {
+				JOptionPane.showMessageDialog(null, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 
+			int empID = Integer.parseInt(loginMenu.getIDField().getText());
+			String password = new String(loginMenu.getPasswordField().getPassword());
 
+			Employee employee = DatabaseController.searchForEmployee(empID, password);
 
-			//if good
-			//  close loginMenu
-			//	new MainMenuGUI(main)
+			if (employee == null) {
+				JOptionPane.showMessageDialog(null, "Wrong id or password", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 
-			//if bad
-			//   display error message
-			System.out.println("Don't Worry. I won't hurt you.");
+			loginMenu.dispose();
+			loginMenu = null;
+			main.getMainMenu().showWindow();
 		}
 	}
 
