@@ -15,9 +15,13 @@ public class MainMenuGUI extends JFrame {
 		setUndecorated(true);
 		setSize(width, height);
 		setLocationRelativeTo(null);
+		setLayout(new GridLayout(1, 2));
 
 		chooseCustomizeCarGUIButton = new JButton("Customize Car");
 		chooseCustomerMenuGUIButton = new JButton("Edit/View Customer");
+
+		add(chooseCustomizeCarGUIButton);
+		add(chooseCustomerMenuGUIButton);
 	}
 
 	public void showWindow() {

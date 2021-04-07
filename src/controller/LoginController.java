@@ -32,10 +32,10 @@ public class LoginController {
 
 			Employee employee = DatabaseController.searchForEmployee(empID, password);
 
-			if (employee == null) {
-				JOptionPane.showMessageDialog(null, "Wrong id or password", "Error", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
+			// if (employee == null) {
+			// 	JOptionPane.showMessageDialog(null, "Wrong id or password", "Error", JOptionPane.ERROR_MESSAGE);
+			// 	return;
+			// }
 
 			loginMenu.dispose();
 			loginMenu = null;

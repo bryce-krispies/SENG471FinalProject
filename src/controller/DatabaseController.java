@@ -21,4 +21,9 @@ public class DatabaseController {
         //else return employee
         return null;
     }
+
+    public static boolean addCustomer(Customer customer) {
+        return false;
+    }
+
 }

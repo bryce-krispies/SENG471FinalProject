@@ -13,4 +13,6 @@ class VehicleCustomizationController {
         customizeCarMenu = new CustomizeCarGUI(1200, 800);
     }
 
+    
+
 }
