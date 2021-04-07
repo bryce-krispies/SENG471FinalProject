@@ -1,6 +1,6 @@
 package model;
 
-public class Salesperson {
+public class Salesperson extends Employee{
 	
 	
 	protected String name;

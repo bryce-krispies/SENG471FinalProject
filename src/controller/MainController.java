@@ -1,36 +1,23 @@
 package controller;
+
+import view.*;
 import model.*;
 
 class MainController {
+    private Employee employee;
+    private Vehicle vehicle;
     private Customer customer;
-    private Salesperson salesperson;
 
-    public MainController(Customer customer, Salesperson salesperson) {
-        this.customer = customer;
-        this.salesperson = salesperson;
+    public MainController() {
+        // mainMenu = new MainMenuGUI(1200, 800);
+        DatabaseController.initializeDatabase();
+        employee = null;
+        vehicle = null;
+        customer = null;
     }
 
-    public void login() {
-
-    }
-
-    public void logout() {
-
-    }
-
-    public void viewCustomerInformation() {
-
-    }
-
-    public void editCustomerInformation() {
-
-    }
-
-    public void addCustomer() {
-
-    }
-
-    public void customizeCar() {
-
+    public static void main(String [] args) {
+    	MainController main = new MainController();
+        new LoginController(main);
     }
 }
