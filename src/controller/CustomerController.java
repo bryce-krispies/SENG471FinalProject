@@ -42,7 +42,7 @@ public class CustomerController {
 		}
 	}
 
-	
+
 	private class AddCustomerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -118,26 +118,36 @@ public class CustomerController {
 				editCustomerMenu.getCardExpiryDateField().getText().isBlank() ||
 				editCustomerMenu.getNotesField().getText().isBlank()
 			) {
+				JOptionPane.showMessageDialog(null, "Improper format for input(s)", "", JOptionPane.ERROR_MESSAGE);
+			} else {
 				main.getCustomer().setCustomer(customerId, age, name, password, email, 
 												phoneNumber, billingAddress, cardNumber, 
 												cardExpiryDate, notes, gender, visitHistory, 
 												currentVehicle, vehiclesInterestedIn, designatedSalesperson);
 			}
 
-			if(!(editCustomerMenu.getCardExpiryDateField().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-				main.getCustomer().setCardExpiryDate(editCustomerMenu.getCardExpiryDateField().getText());
-			}
-			if(!(editCustomerMenu.getNotesField().getText().equals(""))) {
-				main.getCustomer().setNotes(editCustomerMenu.getNotesField().getText());
-			}
-			if(!(editCustomerMenu.getVehiclesInterestedIn().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-				main.getCustomer().addVehiclesInterestedIn(DatabaseManager.searchForVehicle(
-						Integer.parseInt(editCustomerMenu.getVehiclesInterestedIn().getText())));
-			}
-			if(!(editCustomerMenu.getCurrentVehicle().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-				main.getCustomer().setCurrentVehicle(DatabaseManager.searchForVehicle(
-						(Integer.parseInt(editCustomerMenu.getCurrentVehicle().getText()))));
-			}
+			// if(!(editCustomerMenu.getCardExpiryDateField().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
+			// 	main.getCustomer().setCardExpiryDate(editCustomerMenu.getCardExpiryDateField().getText());
+			// }
+			// if(!(editCustomerMenu.getNotesField().getText().equals(""))) {
+			// 	main.getCustomer().setNotes(editCustomerMenu.getNotesField().getText());
+			// }
+			// if(!(editCustomerMenu.getVehiclesInterestedIn().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
+			// 	main.getCustomer().addVehiclesInterestedIn(DatabaseManager.searchForVehicle(
+			// 			Integer.parseInt(editCustomerMenu.getVehiclesInterestedIn().getText())));
+			// }
+			// if(!(editCustomerMenu.getCurrentVehicle().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
+			// 	main.getCustomer().setCurrentVehicle(DatabaseManager.searchForVehicle(
+			// 			(Integer.parseInt(editCustomerMenu.getCurrentVehicle().getText()))));
+			// }
+
+			editCustomerMenu.dispose();
+			editCustomerMenu = null;
+
+			customerChoicesMenu = new CustomerMenuGUI(500, 500);
+			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
+			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
+			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
 		}
 
 	}

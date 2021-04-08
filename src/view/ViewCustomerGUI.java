@@ -25,8 +25,6 @@ public class ViewCustomerGUI extends JFrame {
 		add(notesLabel);
 	}
 
-
-
 	public static void main(String [] args) {
     	new ViewCustomerGUI(500, 500);
     }

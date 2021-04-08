@@ -4,25 +4,25 @@ import java.time.LocalDate;
 
 public class Customer {
 	
-	private int customerId, age;
-	private String name, password, email, phoneNumber, billingAddress, cardNumber, cardExpiryDate, notes;
+	private int customerId, age, cardNumber;
+	private String name, password, email, phoneNumber, billingAddress, cardExpiryDate, notes;
 	private char gender;
 	private LocalDate[] visitHistory;
 	private Vehicle currentVehicle;
 	private Vehicle[] vehiclesInterestedIn;
 	private Salesperson designatedSalesperson;
 
-	public Customer(int customerId, int age, String name, String password, String email, String phoneNumber, String billingAddress, String cardNumber, 
-						String cardExpiryDate, String notes, char gender, LocalDate[] visitHistory, Vehicle currentVehicle, Vehicle[] vehiclesInterestedIn,
+	public Customer(int customerId, int age, int cardNumber, String name, String password, String email, String phoneNumber, String billingAddress, String cardExpiryDate, 
+						String notes, char gender, LocalDate[] visitHistory, Vehicle currentVehicle, Vehicle[] vehiclesInterestedIn,
 						Salesperson designatedSalesperson) {
 		this.customerId = customerId;
 		this.age = age;
+		this.cardNumber = cardNumber;
 		this.name = name;
 		this.password = password;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.billingAddress = billingAddress;
-		this.cardNumber = cardNumber;
 		this.cardExpiryDate = cardExpiryDate;
 		this.notes = notes;
 		this.gender = gender;
@@ -32,17 +32,17 @@ public class Customer {
 		this.designatedSalesperson = designatedSalesperson;
 	}
 
-	public void setCustomer(int customerId, int age, String name, String password, String email, String phoneNumber, String billingAddress, String cardNumber, 
-						String cardExpiryDate, String notes, char gender, LocalDate[] visitHistory, Vehicle currentVehicle, Vehicle[] vehiclesInterestedIn,
+	public void setCustomer(int customerId, int age, int cardNumber, String name, String password, String email, String phoneNumber, String billingAddress, String cardExpiryDate, 
+						String notes, char gender, LocalDate[] visitHistory, Vehicle currentVehicle, Vehicle[] vehiclesInterestedIn,
 						Salesperson designatedSalesperson) {
 		this.customerId = customerId;
 		this.age = age;
+		this.cardNumber = cardNumber;
 		this.name = name;
 		this.password = password;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.billingAddress = billingAddress;
-		this.cardNumber = cardNumber;
 		this.cardExpiryDate = cardExpiryDate;
 		this.notes = notes;
 		this.gender = gender;
@@ -68,6 +68,58 @@ public class Customer {
 		currentVehicle = customer.currentVehicle;
 		vehiclesInterestedIn = customer.vehiclesInterestedIn;
 		designatedSalesperson = customer.designatedSalesperson;
+	}
+
+	public int getId() {
+		return customerId;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public int getCardNumber() {
+		return cardNumber;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public String getBillingAddress() {
+		return billingAddress;
+	}
+
+	public String getCardExpiryDate() {
+		return cardExpiryDate;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public char getGender() {
+		return gender;
+	}
+
+	public LocalDate[] getVisitHistory() {
+		return visitHistory;
+	}
+
+	public Vehicle getCurrentVehicle() {
+		return currentVehicle;
+	}
+
+	public Vehicle[] getVehiclesInterestedIn() {
+		return vehiclesInterestedIn;
 	}
 
 	public Salesperson getDesignatedSalesperson() {
