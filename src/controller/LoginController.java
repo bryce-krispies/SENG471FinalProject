@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.JOptionPane;
 
-import model.Employee;
+import model.Salesperson;
 
 public class LoginController {
 	
@@ -30,9 +30,9 @@ public class LoginController {
 			int empID = Integer.parseInt(loginMenu.getIDField().getText());
 			String password = new String(loginMenu.getPasswordField().getPassword());
 
-			Employee employee = DatabaseController.searchForEmployee(empID, password);
+			Salesperson salesperson = DatabaseController.searchForSalesperson(empID, password);
 
-			// if (employee == null) {
+			// if (Salesperson == null) {
 			// 	JOptionPane.showMessageDialog(null, "Wrong id or password", "Error", JOptionPane.ERROR_MESSAGE);
 			// 	return;
 			// }

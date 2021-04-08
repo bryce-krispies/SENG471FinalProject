@@ -40,7 +40,7 @@ public class LoginGUI extends JFrame {
 		rightSide = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		rightSide.setBackground(Color.WHITE);
 
-		JLabel idLabel = new JLabel("Employee ID");
+		JLabel idLabel = new JLabel("Salesperson ID");
 		rightSide.add(idLabel);
 		idField = new JTextField(40);
 		rightSide.add(idField);

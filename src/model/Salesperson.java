@@ -1,31 +1,31 @@
 package model;
 
-public class Employee {
+public class Salesperson {
 
 	private int id;
 	private String name;
 	private String password;
 	private String type;
 
-	public Employee() {
+	public Salesperson() {
 		id = -1;
 		name = null;
 		password = null;
 		type = null;
 	}
 
-	public Employee(int id, String name, String password, String type) {
+	public Salesperson(int id, String name, String password, String type) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.type = type;
 	}
 
-	public void setEmployee(Employee employee) {
-		name = employee.name;
-		id = employee.id;
-		password = employee.password;
-		type = employee.type;
+	public void setSalesperson(Salesperson salesperson) {
+		name = salesperson.name;
+		id = salesperson.id;
+		password = salesperson.password;
+		type = salesperson.type;
 	}
 
 	public String getName(){

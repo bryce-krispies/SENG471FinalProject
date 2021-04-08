@@ -3,12 +3,12 @@ package controller;
 import java.util.ArrayList;
 
 import model.Customer;
-import model.Employee;
+import model.Salesperson;
 import model.Vehicle;
 
 public class DatabaseController {
 
-    private static ArrayList<Employee> employeeDatabase;
+    private static ArrayList<Salesperson> salespersonDatabase;
     private static ArrayList<Customer> customerDatabase;
     private static ArrayList<Vehicle> vehicleDatabase; 
 
@@ -16,9 +16,9 @@ public class DatabaseController {
         //initialize database here
     }
 
-    public static Employee searchForEmployee(int empID, String password) {
-        //return null if employee not found
-        //else return employee
+    public static Salesperson searchForSalesperson(int empID, String password) {
+        //return null if Salesperson not found
+        //else return Salesperson
         return null;
     }
 

@@ -5,7 +5,7 @@ import model.*;
 import java.awt.event.*;
 
 class MainController {
-    private Employee employee;
+    private Salesperson salesperson;
     private Vehicle vehicle;
     private Customer customer;
 
@@ -13,7 +13,7 @@ class MainController {
 
     public MainController() {
         DatabaseController.initializeDatabase();
-        employee = null;
+        salesperson = null;
         vehicle = null;
         customer = null;
 

@@ -32,7 +32,7 @@ public class GUIPane extends JFrame{
 		
 		private Image image;
 		private JTextField title;
-		private JButton employeeLogin;
+		private JButton salespersonLogin;
 		private JButton quit;
 		
 		public MenuPanel() {
@@ -61,10 +61,10 @@ public class GUIPane extends JFrame{
 			filler.setOpaque(false);
 			this.add(filler);
 			
-			employeeLogin = new JButton("Employee Login");
-			employeeLogin.setBackground(new Color(213, 183, 147));
-			employeeLogin.setFont(new Font("Serif", Font.BOLD, 20));
-			this.add(employeeLogin);
+			salespersonLogin = new JButton("Salesperson Login");
+			salespersonLogin.setBackground(new Color(213, 183, 147));
+			salespersonLogin.setFont(new Font("Serif", Font.BOLD, 20));
+			this.add(salespersonLogin);
 			
 			JTextArea fillerTwo = new JTextArea("                        "
 					+ "                                                  "

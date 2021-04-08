@@ -10,11 +10,11 @@ public class Customer {
 	private LocalDate[] visitHistory;
 	private Vehicle currentVehicle;
 	private Vehicle[] vehiclesInterestedIn;
-	private Employee designatedSalesperson;
+	private Salesperson designatedSalesperson;
 
 	public Customer(int customerId, int age, String name, String password, String email, String phoneNumber, String billingAddress, String cardNumber, 
 						String cardExpiryDate, String notes, char gender, LocalDate[] visitHistory, Vehicle currentVehicle, Vehicle[] vehiclesInterestedIn,
-						Employee designatedSalesperson) {
+						Salesperson designatedSalesperson) {
 		this.customerId = customerId;
 		this.age = age;
 		this.name = name;
