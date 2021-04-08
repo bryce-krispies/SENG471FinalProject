@@ -32,7 +32,7 @@ public class Salesperson {
 		return name;
 	}
 
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 

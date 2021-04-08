@@ -32,6 +32,26 @@ public class Customer {
 		this.designatedSalesperson = designatedSalesperson;
 	}
 
+	public void setCustomer(int customerId, int age, String name, String password, String email, String phoneNumber, String billingAddress, String cardNumber, 
+						String cardExpiryDate, String notes, char gender, LocalDate[] visitHistory, Vehicle currentVehicle, Vehicle[] vehiclesInterestedIn,
+						Salesperson designatedSalesperson) {
+		this.customerId = customerId;
+		this.age = age;
+		this.name = name;
+		this.password = password;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.billingAddress = billingAddress;
+		this.cardNumber = cardNumber;
+		this.cardExpiryDate = cardExpiryDate;
+		this.notes = notes;
+		this.gender = gender;
+		this.visitHistory = visitHistory;
+		this.currentVehicle = currentVehicle;
+		this.vehiclesInterestedIn = vehiclesInterestedIn;
+		this.designatedSalesperson = designatedSalesperson;
+	}
+
 	public void setCustomer(Customer customer) {
 		customerId = customer.customerId;
 		age = customer.age;
@@ -48,6 +68,10 @@ public class Customer {
 		currentVehicle = customer.currentVehicle;
 		vehiclesInterestedIn = customer.vehiclesInterestedIn;
 		designatedSalesperson = customer.designatedSalesperson;
+	}
+
+	public Salesperson getDesignatedSalesperson() {
+		return designatedSalesperson;
 	}
 
 	@Override

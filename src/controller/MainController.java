@@ -52,6 +52,17 @@ class MainController {
         return mainMenu;
     }
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public Salesperson getSalesperson() {
+		return salesperson;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
 
     public static void main(String [] args) {
     	MainController main = new MainController();

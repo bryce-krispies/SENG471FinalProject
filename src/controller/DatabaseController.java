@@ -16,9 +16,13 @@ public class DatabaseController {
         //initialize database here
     }
 
-    public static Salesperson searchForSalesperson(int empID, String password) {
+    public static Salesperson searchForSalesperson(int empId, String password) {
         //return null if Salesperson not found
         //else return Salesperson
+        return null;
+    }
+
+    public static Customer searchForCustomer(int custId) {
         return null;
     }
 
