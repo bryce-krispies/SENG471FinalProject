@@ -9,6 +9,9 @@ import java.awt.event.*;
  * 
  * If we're being honest here just look at your state diagram, cause that is how the system works
  * 
+ * Additionally, I have no idea how the pictures for the models will work, so talk with Madison bout that one
+ * The vehicle class will probably have to be changed for the pics
+ * 
  * Also look at the private class ChooseCustomizeCarGUI within MainController.java to see how we get to VehicleCustomizationController
  */
 class VehicleCustomizationController {
