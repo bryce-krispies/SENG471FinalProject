@@ -12,7 +12,7 @@ import javax.swing.*;
  * Just make sure they follow what the TAs said about the gui
  */
 public class CustomizeCarGUI extends JFrame {
-	private JButton saveCarModelButton;
+	private JButton saveCarModelButton, returnToMainMenuButton;
 
 	public CustomizeCarGUI() {
 		setSize(1200, 800); //I think this is a good size but change it if ya want
@@ -20,6 +20,10 @@ public class CustomizeCarGUI extends JFrame {
 
 	public void addSaveCarModelListener(ActionListener actionListener) {
 		saveCarModelButton.addActionListener(actionListener);
+	}
+
+	public void addReturnToMainMenuListener(ActionListener actionListener) {
+		returnToMainMenuButton.addActionListener(actionListener);
 	}
 
 }

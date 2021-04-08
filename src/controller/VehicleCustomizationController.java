@@ -21,10 +21,11 @@ class VehicleCustomizationController {
 
         customizeCarMenu = new CustomizeCarGUI();
         //add all other button listeners (like SelectInteriorColour, SelectModel, etc.)
-        customizeCarMenu.addSaveCarModelListener(new SaveCarModel());
+        customizeCarMenu.addSaveCarModelListener(new SaveCarModelListener());
+        customizeCarMenu.addReturnToMainMenuListener(new ReturnToMainMenuListener());
     }
 
-    private class SaveCarModel implements ActionListener {
+    private class SaveCarModelListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -33,6 +34,21 @@ class VehicleCustomizationController {
             //save car model into customer within the database
             main.getCustomer().addNewVehicleInterestedIn(main.getVehicle());
             DatabaseController.saveCustomer(main.getCustomer());
+
+            // erase/dispose of car menu
+            customizeCarMenu.dispose();
+			customizeCarMenu = null;
+
+            // go back to main menu 
+			new MainController(main.getSalesperson());
+        }
+
+    }
+
+    private class ReturnToMainMenuListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
 
             // erase/dispose of car menu
             customizeCarMenu.dispose();

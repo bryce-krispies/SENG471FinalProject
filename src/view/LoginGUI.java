@@ -25,7 +25,7 @@ public class LoginGUI extends JFrame {
 		setupLeftSide();
 		setupRightSide();
 
-		add(leftSide);
+		//add(leftSide);
 		add(rightSide);
 
 		setVisible(true);

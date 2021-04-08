@@ -13,6 +13,10 @@ public class DatabaseController {
     private static ArrayList<Vehicle> vehicleDatabase; 
 
     public static void initializeDatabase() {
+        salespersonDatabase = new ArrayList<Salesperson>();
+        customerDatabase = new ArrayList<Customer>();
+        vehicleDatabase = new ArrayList<Vehicle>();
+
         // if yall have a better idea how to do salesperson type, 
         // go ahead (enums? constants? i have no idea if we're being honest here)
         salespersonDatabase.add(new Salesperson(1, "Bryce Cayanan", "a", "StoreManager"));
@@ -27,7 +31,7 @@ public class DatabaseController {
 
     public static Salesperson searchForSalesperson(int empId, String password) {
         for(Salesperson s : salespersonDatabase) {
-            if(s.getId() == empId && s.getPassword() == password) {
+            if(s.getId() == empId && s.getPassword().equals(password)) {
                 return s;
             }
         }
