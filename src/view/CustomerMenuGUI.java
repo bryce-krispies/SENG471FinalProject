@@ -10,10 +10,10 @@ public class CustomerMenuGUI extends JFrame{
 
 	private JButton editCustomerButton, viewCustomerButton, addCustomerButton;
 
-	public CustomerMenuGUI(int width, int height) {
+	public CustomerMenuGUI() {
 		super("Login");
 		setUndecorated(true);
-		setSize(width, height);
+		setSize(500, 500);
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(1, 3));
 
@@ -40,7 +40,7 @@ public class CustomerMenuGUI extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		new CustomerMenuGUI(500, 500);
+		new CustomerMenuGUI();
 	}
 
 }

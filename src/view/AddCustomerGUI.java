@@ -11,10 +11,10 @@ public class AddCustomerGUI extends JFrame {
 		designatedSalespersonField;
 	private JButton submitNewCustomerButton;
 
-	public AddCustomerGUI(int width, int height) {
+	public AddCustomerGUI() {
 		super("Login");
 		setUndecorated(true);
-		setSize(width, height);
+		setSize(500, 500);
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(7, 1));
 
@@ -121,7 +121,7 @@ public class AddCustomerGUI extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new AddCustomerGUI(500, 500);
+		new AddCustomerGUI();
 	}
 
 }

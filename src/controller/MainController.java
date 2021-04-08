@@ -4,47 +4,76 @@ import view.*;
 import model.*;
 import java.awt.event.*;
 
-class MainController {
+import javax.swing.JOptionPane;
+
+
+public class MainController {
+
     private Salesperson salesperson;
     private Vehicle vehicle;
     private Customer customer;
 
     private MainMenuGUI mainMenu;
 
-    public MainController() {
-        DatabaseController.initializeDatabase();
-        salesperson = null;
-        vehicle = null;
+	public MainController(Salesperson salesperson) {
+		this.salesperson = salesperson;
+		vehicle = null;
         customer = null;
 
-        mainMenu = new MainMenuGUI(750, 400);
+		mainMenu = new MainMenuGUI(this);
         mainMenu.addCustomerMenuGUIButtonListener(new ChooseCustomerMenuGUI());
         mainMenu.addCustomizeCarGUIButtonListener(new ChooseCustomizeCarGUI());
-    }
+		mainMenu.addLogoutButtonListener(new ChooseLogout());
+	}
 
     private class ChooseCustomerMenuGUI implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//if good
-			//  mainMenu.hideWindow()
-			//	new CustomerMenuGUI(main)
+			MainController main = mainMenu.getMainController();
 
-			//if bad
-			//   display error message
-			System.out.println("Don't Worry. I won't hurt you.");
+			mainMenu.dispose();
+			mainMenu = null;
+
+			new CustomerController(main);
 		}
 	}
 
     private class ChooseCustomizeCarGUI implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//if good
-			//  mainMenu.hideWindow()
-			//	new CustomizeCarGUI(main)
+			String custId = JOptionPane.showInputDialog(null, "Enter Customer ID", "Select Customer", JOptionPane.INFORMATION_MESSAGE);
+			int customerId = Integer.parseInt(custId);
 
-			//if bad
-			//   display error message
-			System.out.println("Don't Worry. I won't hurt you.");
+			Customer customer = DatabaseController.searchForCustomer(customerId);
+			MainController main = mainMenu.getMainController();
+
+			if(
+				(customer.getDesignatedSalesperson().getId() != main.getSalesperson().getId()) &&
+				!main.getSalesperson().getType().equals("StoreManager")
+			) {
+				JOptionPane.showMessageDialog(null, "Invalid Access Level", "", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			mainMenu.dispose();
+			mainMenu = null;
+
+			new VehicleCustomizationController(main);
+		}
+	}
+
+	private class ChooseLogout implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mainMenu.dispose();
+			mainMenu = null;
+
+			salesperson = null;
+			vehicle = null;
+			customer = null;
+
+			DatabaseController.initializeDatabase();
+        	new LoginController();
 		}
 	}
 
@@ -65,7 +94,7 @@ class MainController {
 	}
 
     public static void main(String [] args) {
-    	MainController main = new MainController();
-        new LoginController(main);
+		DatabaseController.initializeDatabase();
+        new LoginController();
     }
 }

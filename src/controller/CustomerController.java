@@ -16,11 +16,12 @@ public class CustomerController {
 
 	public CustomerController(MainController main) {
 		this.main = main;
-		customerChoicesMenu = new CustomerMenuGUI(500, 500);
+		customerChoicesMenu = new CustomerMenuGUI();
 		customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
 		customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
 		customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
 	}
+
 
 	private class EditCustomerListener implements ActionListener {
 		@Override
@@ -30,14 +31,17 @@ public class CustomerController {
 
 			Customer customer = DatabaseController.searchForCustomer(customerId);
 
-			if(customer.getDesignatedSalesperson().getId() != main.getSalesperson().getId()) {
+			if(
+				(customer.getDesignatedSalesperson().getId() != main.getSalesperson().getId()) &&
+				!main.getSalesperson().getType().equals("StoreManager")
+			) {
 				JOptionPane.showMessageDialog(null, "Invalid Access Level", "", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
 			customerChoicesMenu.dispose();
 			customerChoicesMenu = null;
-			editCustomerMenu = new EditCustomerGUI(500, 500);
+			editCustomerMenu = new EditCustomerGUI(main.getCustomer());
 			editCustomerMenu.addSubmitNewInformationListener(new SubmitNewInformationListener());
 		}
 	}
@@ -46,9 +50,14 @@ public class CustomerController {
 	private class AddCustomerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			if(!main.getSalesperson().getType().equals("StoreManager")) {
+				JOptionPane.showMessageDialog(null, "Invalid Access Level", "", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
 			customerChoicesMenu.dispose();
 			customerChoicesMenu = null;
-			editCustomerMenu = new EditCustomerGUI();
+			addCustomerMenu = new AddCustomerGUI();
 		}
 	}
 
@@ -61,6 +70,7 @@ public class CustomerController {
 		}
 	}
 
+	/*
 	private class CustomerListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -105,6 +115,7 @@ public class CustomerController {
 			}
 		}
 	}
+	*/
 
 	private class SubmitNewInformationListener implements ActionListener {
 
@@ -144,7 +155,7 @@ public class CustomerController {
 			editCustomerMenu.dispose();
 			editCustomerMenu = null;
 
-			customerChoicesMenu = new CustomerMenuGUI(500, 500);
+			customerChoicesMenu = new CustomerMenuGUI();
 			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
 			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
 			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());

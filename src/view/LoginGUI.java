@@ -15,15 +15,15 @@ public class LoginGUI extends JFrame {
 	private JTextField idField;
 	private JPasswordField passwordField;
 
-	public LoginGUI(int width, int height) {
+	public LoginGUI() {
 		super("Login");
 		setUndecorated(true);
-		setSize(width, height);
+		setSize(750, 400);
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(1, 2));
 
-		setupLeftSide(width, height);
-		setupRightSide(width, height);
+		setupLeftSide();
+		setupRightSide();
 
 		add(leftSide);
 		add(rightSide);
@@ -31,12 +31,12 @@ public class LoginGUI extends JFrame {
 		setVisible(true);
 	}
 
-	public void setupLeftSide(int width, int height) {
+	public void setupLeftSide() {
 		leftSide = new JPanel();
 		leftSide.setBackground(new Color(134,197,218));
 	}
 
-	public void setupRightSide(int width, int height) {
+	public void setupRightSide() {
 		rightSide = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		rightSide.setBackground(Color.WHITE);
 

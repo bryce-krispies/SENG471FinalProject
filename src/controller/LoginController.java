@@ -9,12 +9,10 @@ import model.Salesperson;
 
 public class LoginController {
 	
-	private MainController main;
 	private LoginGUI loginMenu;
 
-	public LoginController(MainController main) {
-		this.main = main;
-		loginMenu = new LoginGUI(750, 400);
+	public LoginController() {
+		loginMenu = new LoginGUI();
 
 		loginMenu.addLoginListener(new LoginListener());
 	}
@@ -39,7 +37,8 @@ public class LoginController {
 
 			loginMenu.dispose();
 			loginMenu = null;
-			main.getMainMenu().showWindow();
+
+			new MainController(salesperson);
 		}
 	}
 

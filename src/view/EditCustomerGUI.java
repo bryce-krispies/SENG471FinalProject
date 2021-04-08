@@ -14,10 +14,10 @@ public class EditCustomerGUI extends JFrame {
 	private JTextArea notesField;
 	private JButton submitNewInformationButton;
 
-	public EditCustomerGUI(int width, int height, Customer customer) {
+	public EditCustomerGUI(Customer customer) {
 		super("Login");
 		setUndecorated(true);
-		setSize(width, height);
+		setSize(500, 500);
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(7, 1));
 
@@ -79,7 +79,7 @@ public class EditCustomerGUI extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new EditCustomerGUI(500, 500);
+		new EditCustomerGUI();
 	}
 
 	

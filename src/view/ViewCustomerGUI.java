@@ -11,19 +11,19 @@ import model.Vehicle;
 
 public class ViewCustomerGUI extends JFrame {
 
-	private JLabel customerIdLabel, ageLabel, cardNumberLabel, nameLabel, passwordLabel, 
+	private JLabel customerIdLabel, ageLabel, cardNumberLabel, nameLabel, 
 					emailLabel, phoneNumberLabel, billingAddressLabel, cardExpiryDateLabel, 
 					notesLabel, genderLabel, currentVehicleLabel, designatedSalespersonLabel;
 
 	private JList<String> visitHistoryList, vehiclesInterestedInList;
 
 
-	public ViewCustomerGUI(int width, int height, Customer customer, boolean validAccessLevel) {
+	public ViewCustomerGUI(Customer customer, boolean validAccessLevel) {
 		//TODO Find out which customer information cannot be seen by non-designated salesperson
 
 		super("Login");
 		setUndecorated(true);
-		setSize(width, height);
+		setSize(500, 500);
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(7, 1));
 
@@ -70,7 +70,7 @@ public class ViewCustomerGUI extends JFrame {
 	}
 
 	public static void main(String [] args) {
-    	new ViewCustomerGUI(500, 500, new Customer());
+    	new ViewCustomerGUI(new Customer());
     }
 
 }
