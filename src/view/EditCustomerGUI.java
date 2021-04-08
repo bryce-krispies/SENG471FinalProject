@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class EditCustomerGUI extends JFrame {
 
-	private JTextField passwordField, emailField, phoneField, billingAddressField, cardNumberField, cardExpiryDateField;
+	private JTextField emailField, phoneField, billingAddressField, cardNumberField, cardExpiryDateField;
 	private JTextArea notesField;
 	private JButton submitNewInformationButton;
 
@@ -19,10 +19,6 @@ public class EditCustomerGUI extends JFrame {
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(7, 1));
 
-		JLabel passwordLabel = new JLabel("Password");
-		passwordField = new JTextField();
-		add(passwordLabel);
-		add(passwordField);
 		JLabel emailLabel = new JLabel("Email");
 		emailField = new JTextField();
 		add(emailLabel);
@@ -57,9 +53,6 @@ public class EditCustomerGUI extends JFrame {
 		submitNewInformationButton.addActionListener(actionListener);
 	}
 
-	public JTextField getPasswordField() {
-		return passwordField;
-	}
 	public JTextField getEmailField() {
 		return emailField;
 	}

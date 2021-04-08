@@ -2,20 +2,20 @@ package model;
 
 public class Salesperson {
 
-	private int id;
+	private int salespersonId;
 	private String name;
 	private String password;
 	private String type;
 
 	public Salesperson() {
-		id = -1;
+		salespersonId = -1;
 		name = null;
 		password = null;
 		type = null;
 	}
 
-	public Salesperson(int id, String name, String password, String type) {
-		this.id = id;
+	public Salesperson(int salespersonId, String name, String password, String type) {
+		this.salespersonId = salespersonId;
 		this.name = name;
 		this.password = password;
 		this.type = type;
@@ -23,7 +23,7 @@ public class Salesperson {
 
 	public void setSalesperson(Salesperson salesperson) {
 		name = salesperson.name;
-		id = salesperson.id;
+		salespersonId = salesperson.salespersonId;
 		password = salesperson.password;
 		type = salesperson.type;
 	}
@@ -33,7 +33,7 @@ public class Salesperson {
 	}
 
 	public int getId() {
-		return id;
+		return salespersonId;
 	}
 
 	public String getPassword() {
@@ -42,5 +42,10 @@ public class Salesperson {
 
 	public String getType() {
 		return type;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee ID: " +salespersonId +"\tName: " +name;
 	}
 }

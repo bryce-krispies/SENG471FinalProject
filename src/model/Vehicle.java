@@ -22,4 +22,11 @@ public class Vehicle {
     public void setInteriorColour(String interiorColour) {
         this.interiorColour = interiorColour;
     }
+
+    @Override
+	public String toString() {
+    
+		return "Model: " +model +"\n\tExterior Colour: " +exteriorColour +"\n\tInterior Colour: " +interiorColour;
+		
+	}
 }

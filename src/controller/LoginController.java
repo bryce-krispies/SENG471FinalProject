@@ -32,7 +32,7 @@ public class LoginController {
 
 			Salesperson salesperson = DatabaseController.searchForSalesperson(empID, password);
 
-			if (Salesperson == null) {
+			if (salesperson == null) {
 				JOptionPane.showMessageDialog(null, "Wrong id or password", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
