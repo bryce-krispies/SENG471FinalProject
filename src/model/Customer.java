@@ -1,33 +1,53 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Customer {
 	
-	
-	private String name;
-	private Vehicle customizedVehicle;
-	private String age;
-	private String email;
-	private int customerId;
-    // could be more values
+	private int customerId, age;
+	private String name, password, email, phoneNumber, billingAddress, cardNumber, cardExpiryDate, notes;
+	private char gender;
+	private LocalDate[] visitHistory;
+	private Vehicle currentVehicle;
+	private Vehicle[] vehiclesInterestedIn;
+	private Employee designatedSalesperson;
 
-	public Customer (String name, Vehicle customizedVehicle, String age, String email, int customerId) {
-		this.name = name;
-		this.customizedVehicle = customizedVehicle;
-		this.age = age;
-		this.email = email;
+	public Customer(int customerId, int age, String name, String password, String email, String phoneNumber, String billingAddress, String cardNumber, 
+						String cardExpiryDate, String notes, char gender, LocalDate[] visitHistory, Vehicle currentVehicle, Vehicle[] vehiclesInterestedIn,
+						Employee designatedSalesperson) {
 		this.customerId = customerId;
-    }
-
-	public Customer getInformation() {
-		return this;
+		this.age = age;
+		this.name = name;
+		this.password = password;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.billingAddress = billingAddress;
+		this.cardNumber = cardNumber;
+		this.cardExpiryDate = cardExpiryDate;
+		this.notes = notes;
+		this.gender = gender;
+		this.visitHistory = visitHistory;
+		this.currentVehicle = currentVehicle;
+		this.vehiclesInterestedIn = vehiclesInterestedIn;
+		this.designatedSalesperson = designatedSalesperson;
 	}
 
-	public void changeInformation(Customer c) {
-		this.name = c.name;
-		this.customizedVehicle = c.customizedVehicle;
-		this.age = c.age;
-		this.email = c.email;
-		this.customerId = c.customerId;
+	public void setCustomer(Customer customer) {
+		customerId = customer.customerId;
+		age = customer.age;
+		name = customer.name;
+		password = customer.password;
+		email = customer.email;
+		phoneNumber = customer.phoneNumber;
+		billingAddress = customer.billingAddress;
+		cardNumber = customer.cardNumber;
+		cardExpiryDate = customer.cardExpiryDate;
+		notes = customer.notes;
+		gender = customer.gender;
+		visitHistory = customer.visitHistory;
+		currentVehicle = customer.currentVehicle;
+		vehiclesInterestedIn = customer.vehiclesInterestedIn;
+		designatedSalesperson = customer.designatedSalesperson;
 	}
 
 	@Override
@@ -39,5 +59,3 @@ public class Customer {
 	}
 
 }
-
-// will need to add all the getter and setters
