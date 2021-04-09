@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Customer {
+
+	//Important: customer id should only be 20 digits
 	
-	private int customerId, age;
-	private String name, email, phoneNumber, billingAddress, cardNumber, cardExpiryDate, notes;
+	private int age;
+	private String customerId, name, email, phoneNumber, billingAddress, cardNumber, cardExpiryDate, notes;
 	private char gender;
 	private ArrayList<LocalDate> visitHistory;
 	private Vehicle currentVehicle;
@@ -14,7 +16,7 @@ public class Customer {
 	private Salesperson designatedSalesperson;
 
 
-	public Customer(int customerId, int age, String cardNumber, String name, String email, String phoneNumber, String billingAddress, String cardExpiryDate, 
+	public Customer(String customerId, int age, String cardNumber, String name, String email, String phoneNumber, String billingAddress, String cardExpiryDate, 
 						String notes, char gender, ArrayList<LocalDate> visitHistory, Vehicle currentVehicle, ArrayList<Vehicle> vehiclesInterestedIn,
 						Salesperson designatedSalesperson) {
 		this.customerId = customerId;
@@ -42,7 +44,7 @@ public class Customer {
 	}
 
 
-	public void setCustomer(int customerId, int age, String cardNumber, String name, String email, String phoneNumber, String billingAddress, String cardExpiryDate, 
+	public void setCustomer(String customerId, int age, String cardNumber, String name, String email, String phoneNumber, String billingAddress, String cardExpiryDate, 
 						String notes, char gender, ArrayList<LocalDate> visitHistory, Vehicle currentVehicle, ArrayList<Vehicle> vehiclesInterestedIn,
 						Salesperson designatedSalesperson) {
 		this.customerId = customerId;
@@ -78,10 +80,10 @@ public class Customer {
 		designatedSalesperson = customer.designatedSalesperson;
 	}
 
-	public int getId() {
+	public String getId() {
 		return customerId;
 	}
-	public void setId(int customerId) {
+	public void setId(String customerId) {
 		this.customerId = customerId;
 	}
 

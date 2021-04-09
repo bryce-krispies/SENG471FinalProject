@@ -18,7 +18,15 @@ public class CustomizeCarGUI extends JFrame {
 	private JButton saveCarModelButton, returnToMainMenuButton;
 
 	public CustomizeCarGUI() {
+		super("Customize Car");
+		setUndecorated(true);
 		setSize(1200, 800); //I think this is a good size but change it if ya want
+		setLocationRelativeTo(null);
+
+		saveCarModelButton = new JButton("Save Car Model");
+		add(saveCarModelButton);
+		returnToMainMenuButton=new JButton("Return To Main Menu");
+		add(returnToMainMenuButton);
 	}
 
 	public void addSaveCarModelListener(ActionListener actionListener) {

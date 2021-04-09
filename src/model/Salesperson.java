@@ -1,20 +1,22 @@
 package model;
 
+import miscellaneous.SalespersonType;
+
 public class Salesperson {
 
-	private int salespersonId;
-	private String name;
-	private String password;
-	private String type;
+	//Important: salespersonId should be 10 digits only
+
+	private String salespersonId, name, password;
+	private SalespersonType type;
 
 	public Salesperson() {
-		salespersonId = -1;
+		salespersonId = null;
 		name = null;
 		password = null;
 		type = null;
 	}
 
-	public Salesperson(int salespersonId, String name, String password, String type) {
+	public Salesperson(String salespersonId, String name, String password, SalespersonType type) {
 		this.salespersonId = salespersonId;
 		this.name = name;
 		this.password = password;
@@ -22,7 +24,7 @@ public class Salesperson {
 	}
 
 	public boolean isStoreManager() {
-		if(type.equals("StoreManager")) {
+		if(type.equals(SalespersonType.STOREMANAGER)) {
 			return true;
 		}
 
@@ -36,21 +38,10 @@ public class Salesperson {
 		type = salesperson.type;
 	}
 
-	public String getName(){
-		return name;
-	}
-
-	public int getId() {
-		return salespersonId;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public String getType() {
-		return type;
-	}
+	public String getName(){ return name; }
+	public String getId() { return salespersonId; }
+	public String getPassword() { return password; }
+	public SalespersonType getType() { return type; }
 
 	@Override
 	public String toString() {
