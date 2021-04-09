@@ -49,7 +49,17 @@ public class DatabaseController {
         return null;
     }
 
-    public static Customer searchForCustomer(int custId) {
+    public static Customer searchForCustomer(String custId) {
+        return null;
+    }
+
+    public static Salesperson getSalesperson(int empId) {
+        for(Salesperson s : salespersonDatabase) {
+            if(s.getId() == empId) {
+                return s;
+            }
+        }
+
         return null;
     }
 
@@ -78,6 +88,17 @@ public class DatabaseController {
 
     public static ArrayList<Vehicle> retrieveModels() {
         return vehicleDatabase;
+    }
+
+    public static int getUniqueId() {
+        int id = 0;
+        for(int i = 0; i < customerDatabase.size(); ++i){
+            if(id == customerDatabase.get(i).getId()) {
+                id++;
+                i = 0;
+            }
+        }
+        return id;
     }
 
 }

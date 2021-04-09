@@ -165,6 +165,9 @@ public class Customer {
 	public ArrayList<Vehicle> getVehiclesInterestedIn() {
 		return vehiclesInterestedIn;
 	}
+	public void setVehiclesInterestedIn(ArrayList<Vehicle> vehiclesInterestedIn) {
+		this.vehiclesInterestedIn = vehiclesInterestedIn;
+	}
 	public void addNewVehicleInterestedIn(Vehicle newVehicleInterestedIn) {
 		vehiclesInterestedIn.add(newVehicleInterestedIn);
 	}

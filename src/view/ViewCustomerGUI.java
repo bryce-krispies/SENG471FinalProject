@@ -70,14 +70,12 @@ public class ViewCustomerGUI extends JFrame {
 
 		returnToCustomerMenuButton = new JButton("Return To Customer Menu");
 		add(returnToCustomerMenuButton);
+
+		setVisible(true);
 	}
 
-	public void addReturnToCustomerMenuListener(ActionListener actionListener) {
+	public void addReturnToCustomerMenuFromViewListener(ActionListener actionListener) {
 		returnToCustomerMenuButton.addActionListener(actionListener);
 	}
-
-	public static void main(String [] args) {
-    	new ViewCustomerGUI(new Customer());
-    }
 
 }

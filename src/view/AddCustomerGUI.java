@@ -9,7 +9,7 @@ public class AddCustomerGUI extends JFrame {
 		nameField, emailField, phoneNumberField, billingAddressField, cardExpiryDateField,
 		genderField, currentVehicleModelField, currentVehicleExteriorField, currentVehicleInteriorField,
 		designatedSalespersonField;
-	private JButton submitNewCustomerButton;
+	private JButton submitNewCustomerButton, returnToCustomerMenuButton;
 
 	public AddCustomerGUI() {
 		super("Login");
@@ -76,11 +76,18 @@ public class AddCustomerGUI extends JFrame {
 		submitNewCustomerButton = new JButton("Submit");
 		add(submitNewCustomerButton);
 
+		returnToCustomerMenuButton = new JButton("Return To Customer Menu");
+		add(returnToCustomerMenuButton);
+
 		setVisible(true);
 	}
 
 	public void addSubmitNewCustomerListener(ActionListener actionListener) {
 		submitNewCustomerButton.addActionListener(actionListener);
+	}
+
+	public void addReturnToCustomerMenuButtonFromAddListener(ActionListener actionListener) {
+		returnToCustomerMenuButton.addActionListener(actionListener);
 	}
 
 	public JTextField getAgeField() {

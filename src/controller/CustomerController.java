@@ -2,10 +2,13 @@ package controller;
 
 import view.*;
 import java.awt.event.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import model.Customer;
+import model.Vehicle;
 
 public class CustomerController {
 	private MainController main;
@@ -50,6 +53,7 @@ public class CustomerController {
 			customerChoicesMenu = null;
 			editCustomerMenu = new EditCustomerGUI(main.getCustomer());
 			editCustomerMenu.addSubmitNewInformationListener(new SubmitNewInformationListener());
+			editCustomerMenu.addReturnToCustomerMenuFromEditListener(new ReturnToCustomerMenuFromEditListener());
 		}
 	}
 
@@ -64,6 +68,8 @@ public class CustomerController {
 			customerChoicesMenu.dispose();
 			customerChoicesMenu = null;
 			addCustomerMenu = new AddCustomerGUI();
+			addCustomerMenu.addSubmitNewCustomerListener(new SubmitNewCustomerListener());
+			addCustomerMenu.addReturnToCustomerMenuButtonFromAddListener(new ReturnToCustomerMenuFromAddListener());
 		}
 	}
 
@@ -95,7 +101,7 @@ public class CustomerController {
 			customerChoicesMenu.dispose();
 			customerChoicesMenu = null;
 			viewCustomerMenu = new ViewCustomerGUI(main.getCustomer(), validAccessLevel);
-			viewCustomerMenu.addReturnToCustomerMenuListener(new ReturnToCustomerMenuListener());
+			viewCustomerMenu.addReturnToCustomerMenuFromViewListener(new ReturnToCustomerMenuFromViewListener());
 		}
 	}
 
@@ -114,52 +120,46 @@ public class CustomerController {
 
     }
 
-	/*
-	private class CustomerListener implements ActionListener{
+	private class SubmitNewCustomerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == customerChoicesMenu.getEditButton()) {
-				editCustomerMenu = new EditCustomerGUI();
-				main.getNotesArea.setText(main.getCustomer().getNotes());
+			if(
+				addCustomerMenu.getAgeField().getText().isBlank() ||
+				addCustomerMenu.getCardNumberField().getText().isBlank() ||
+				addCustomerMenu.getNameField().getText().isBlank() ||
+				addCustomerMenu.getEmailField().getText().isBlank() ||
+				addCustomerMenu.getPhoneField().getText().isBlank() ||
+				addCustomerMenu.getBillingAddressField().getText().isBlank() ||
+				addCustomerMenu.getCardExpiryDateField().getText().isBlank() ||
+				addCustomerMenu.getGenderField().getText().isBlank() ||
+				addCustomerMenu.getCurrentVehicleModelField().getText().isBlank() ||
+				addCustomerMenu.getCurrentVehicleExteriorField().getText().isBlank() ||
+				addCustomerMenu.getCurrentVehicleInteriorField().getText().isBlank() ||
+				addCustomerMenu.getDesignatedSalespersonField().getText().isBlank()
+			) {
+				JOptionPane.showMessageDialog(null, "Improper format for input(s)", "", JOptionPane.ERROR_MESSAGE);
+			} else {
+				int id = DatabaseController.getUniqueId();
+				Customer customer = new Customer(id, Integer.parseInt(addCustomerMenu.getAgeField().getText()), addCustomerMenu.getCardNumberField().getText(), 
+				addCustomerMenu.getNameField().getText(), addCustomerMenu.getEmailField().getText(), addCustomerMenu.getPhoneField().getText(), 
+				addCustomerMenu.getBillingAddressField().getText(), addCustomerMenu.getCardExpiryDateField().getText(), "", addCustomerMenu.getGenderField().getText().toCharArray()[0], 
+				new ArrayList<LocalDate>(), new Vehicle(addCustomerMenu.getCurrentVehicleModelField().getText(), 
+				addCustomerMenu.getCurrentVehicleExteriorField().getText(), 
+				addCustomerMenu.getCurrentVehicleInteriorField().getText()), new ArrayList<Vehicle>(), 
+				DatabaseController.getSalesperson(Integer.parseInt(addCustomerMenu.getDesignatedSalespersonField().getText())));
+
+				DatabaseController.addCustomer(customer);
 			}
-			else if(e.getSource() == editCustomerMenu.getMakeChangesButton()) {
-				if(!(editCustomerMenu.getPhoneField().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-					main.getCustomer().setPhoneNumber(Integer.parseInt(editCustomerMenu.getPhoneField()).getText());
-				}
-				if(!(editCustomerMenu.getEmailField().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-					main.getCustomer().setEmail(editCustomerMenu.getEmailField().getText());
-				}
-				if(!(editCustomerMenu.getBillingAddressField().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-					main.getCustomer().setBillingAddress(editCustomerMenu.getBillingAddressField().getText());
-				}
-				if(!(editCustomerMenu.getCardNumberField().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-					main.getCustomer().setCardNumber(Integer.parseInt(editCustomerMenu.getCardNumberField().getText()));
-				}
-				if(!(editCustomerMenu.getCardExpiryDateField().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-					main.getCustomer().setCardExpiryDate(editCustomerMenu.getCardExpiryDateField().getText());
-				}
-				if(!(editCustomerMenu.getNotesField().getText().equals(""))) {
-					main.getCustomer().setNotes(editCustomerMenu.getNotesField().getText());
-				}
-				if(!(editCustomerMenu.getVehiclesInterestedIn().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-					main.getCustomer().addVehiclesInterestedIn(DatabaseManager.searchForVehicle(
-							Integer.parseInt(editCustomerMenu.getVehiclesInterestedIn().getText())));
-				}
-				if(!(editCustomerMenu.getCurrentVehicle().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-					main.getCustomer().setCurrentVehicle(DatabaseManager.searchForVehicle(
-							(Integer.parseInt(editCustomerMenu.getCurrentVehicle().getText()))));
-				}
-			}
-			else if(e.getSource() == customerChoicesMenu.getViewButton()) {
-				viewCustomerMenu = new ViewCustomerGUI();
-			}
-			else if(e.getSource() == viewCustomerMenu.getSearchButton) {
-				Customer c = DatabaseController.searchForCustomer(viewCustomerMenu.getIDField(), viewCustomerMenu.getNameField());
-				ViewCustomerMenu.display(c);
-			}
+			
+			editCustomerMenu.dispose();
+			editCustomerMenu = null;
+
+			customerChoicesMenu = new CustomerMenuGUI();
+			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
+			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
+			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
 		}
 	}
-	*/
 
 	private class SubmitNewInformationListener implements ActionListener {
 
@@ -171,43 +171,72 @@ public class CustomerController {
 				editCustomerMenu.getBillingAddressField().getText().isBlank() ||
 				editCustomerMenu.getCardNumberField().getText().isBlank() ||
 				editCustomerMenu.getCardExpiryDateField().getText().isBlank() ||
-				editCustomerMenu.getNotesField().getText().isBlank()
+				editCustomerMenu.getNotesField().getText().isBlank() ||
+				editCustomerMenu.getGenderField().getText().isBlank() ||
+				editCustomerMenu.getCurrentVehicleModelField().getText().isBlank() ||
+				editCustomerMenu.getCurrentVehicleExteriorField().getText().isBlank() ||
+				editCustomerMenu.getCurrentVehicleInteriorField().getText().isBlank()
 			) {
 				JOptionPane.showMessageDialog(null, "Improper format for input(s)", "", JOptionPane.ERROR_MESSAGE);
 			} else {
-				main.getCustomer().setCustomer(customerId, age, name, password, email, 
-												phoneNumber, billingAddress, cardNumber, 
-												cardExpiryDate, notes, gender, visitHistory, 
-												currentVehicle, vehiclesInterestedIn, designatedSalesperson);
+
+				Customer customer = main.getCustomer();
+
+				customer.setPhoneNumber(editCustomerMenu.getPhoneField().getText());
+				customer.setEmail(editCustomerMenu.getEmailField().getText());
+				customer.setBillingAddress(editCustomerMenu.getBillingAddressField().getText());
+				customer.setCardNumber(editCustomerMenu.getCardNumberField().getText());
+				customer.setCardExpiryDate(editCustomerMenu.getCardExpiryDateField().getText());
+				customer.setNotes(editCustomerMenu.getNotesField().getText());
+				customer.setGender(editCustomerMenu.getGenderField().getText().toCharArray()[0]);
+				customer.setCurrentVehicle(new Vehicle(editCustomerMenu.getCurrentVehicleModelField().getText(), 
+														editCustomerMenu.getCurrentVehicleExteriorField().getText(), 
+														editCustomerMenu.getCurrentVehicleInteriorField().getText()));
+				customer.setVehiclesInterestedIn(editCustomerMenu.getVehiclesInterestedIn());
+
+				DatabaseController.saveCustomer(main.getCustomer());
 			}
-
-			// if(!(editCustomerMenu.getCardExpiryDateField().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-			// 	main.getCustomer().setCardExpiryDate(editCustomerMenu.getCardExpiryDateField().getText());
-			// }
-			// if(!(editCustomerMenu.getNotesField().getText().equals(""))) {
-			// 	main.getCustomer().setNotes(editCustomerMenu.getNotesField().getText());
-			// }
-			// if(!(editCustomerMenu.getVehiclesInterestedIn().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-			// 	main.getCustomer().addVehiclesInterestedIn(DatabaseManager.searchForVehicle(
-			// 			Integer.parseInt(editCustomerMenu.getVehiclesInterestedIn().getText())));
-			// }
-			// if(!(editCustomerMenu.getCurrentVehicle().getText().equals("")) && main.getSalesperson().getType().equals("StoreManager")) {
-			// 	main.getCustomer().setCurrentVehicle(DatabaseManager.searchForVehicle(
-			// 			(Integer.parseInt(editCustomerMenu.getCurrentVehicle().getText()))));
-			// }
-
-			editCustomerMenu.dispose();
-			editCustomerMenu = null;
-
-			customerChoicesMenu = new CustomerMenuGUI();
-			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
-			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
-			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
 		}
 
 	}
 
-	private class ReturnToCustomerMenuListener implements ActionListener {
+	private class ReturnToCustomerMenuFromAddListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// erase/dispose of car menu
+			addCustomerMenu.dispose();
+			addCustomerMenu = null;
+
+			// go back to main menu 
+			customerChoicesMenu = new CustomerMenuGUI();
+			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
+			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
+			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
+			customerChoicesMenu.addReturnToMainMenuListener(new ReturnToMainMenuListener());
+		}
+
+	}
+	
+	private class ReturnToCustomerMenuFromEditListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// erase/dispose of car menu
+			editCustomerMenu.dispose();
+			editCustomerMenu = null;
+
+			// go back to main menu 
+			customerChoicesMenu = new CustomerMenuGUI();
+			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
+			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
+			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
+			customerChoicesMenu.addReturnToMainMenuListener(new ReturnToMainMenuListener());
+		}
+
+	}
+	
+	private class ReturnToCustomerMenuFromViewListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
