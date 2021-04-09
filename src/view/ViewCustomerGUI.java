@@ -3,6 +3,7 @@ package view;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -14,9 +15,8 @@ public class ViewCustomerGUI extends JFrame {
 	private JLabel customerIdLabel, ageLabel, cardNumberLabel, nameLabel, 
 					emailLabel, phoneNumberLabel, billingAddressLabel, cardExpiryDateLabel, 
 					notesLabel, genderLabel, currentVehicleLabel, designatedSalespersonLabel;
-
 	private JList<String> visitHistoryList, vehiclesInterestedInList;
-
+	private JButton returnToCustomerMenuButton;
 
 	public ViewCustomerGUI(Customer customer, boolean validAccessLevel) {
 		//TODO Find out which customer information cannot be seen by non-designated salesperson
@@ -52,21 +52,28 @@ public class ViewCustomerGUI extends JFrame {
 		designatedSalespersonLabel = new JLabel("Designated Salesperson: " +customer.getDesignatedSalesperson());
 		add(designatedSalespersonLabel);
 
-		LocalDate[] history = customer.getVisitHistory();
-		String[] stringHistory = new String[history.length];
-		for(int i = 0; i < history.length; ++i) {
-			stringHistory[i] = history[i].toString();
+		ArrayList<LocalDate> history = customer.getVisitHistory();
+		String[] stringHistory = new String[history.size()];
+		for(int i = 0; i < history.size(); ++i) {
+			stringHistory[i] = history.get(i).toString();
 		}
 		visitHistoryList = new JList<String>(stringHistory);
 		add(visitHistoryList);
 
-		Vehicle[] carsInterestedIn = customer.getVehiclesInterestedIn();
-		String[] stringCarsInterestedIn = new String[carsInterestedIn.length];
-		for(int i = 0; i < carsInterestedIn.length; ++i) {
-			stringCarsInterestedIn[i] = carsInterestedIn[i].toString();
+		ArrayList<Vehicle> carsInterestedIn = customer.getVehiclesInterestedIn();
+		String[] stringCarsInterestedIn = new String[carsInterestedIn.size()];
+		for(int i = 0; i < carsInterestedIn.size(); ++i) {
+			stringCarsInterestedIn[i] = carsInterestedIn.get(i).toString();
 		}
 		vehiclesInterestedInList = new JList<String>(stringCarsInterestedIn);
 		add(vehiclesInterestedInList);
+
+		returnToCustomerMenuButton = new JButton("Return To Customer Menu");
+		add(returnToCustomerMenuButton);
+	}
+
+	public void addReturnToCustomerMenuListener(ActionListener actionListener) {
+		returnToCustomerMenuButton.addActionListener(actionListener);
 	}
 
 	public static void main(String [] args) {

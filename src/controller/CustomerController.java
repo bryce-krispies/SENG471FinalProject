@@ -20,8 +20,8 @@ public class CustomerController {
 		customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
 		customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
 		customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
+		customerChoicesMenu.addReturnToMainMenuListener(new ReturnToMainMenuListener());
 	}
-
 
 	private class EditCustomerListener implements ActionListener {
 		@Override
@@ -31,9 +31,16 @@ public class CustomerController {
 
 			Customer customer = DatabaseController.searchForCustomer(customerId);
 
+			if(customer == null) {
+				JOptionPane.showMessageDialog(null, "Customer Not Found", "", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			main.setCustomer(customer);
+
 			if(
-				(customer.getDesignatedSalesperson().getId() != main.getSalesperson().getId()) &&
-				!main.getSalesperson().getType().equals("StoreManager")
+				customer.checkIfSalespersonIsDesignated(main.getSalesperson()) &&
+				!main.getSalesperson().isStoreManager()
 			) {
 				JOptionPane.showMessageDialog(null, "Invalid Access Level", "", JOptionPane.ERROR_MESSAGE);
 				return;
@@ -46,11 +53,10 @@ public class CustomerController {
 		}
 	}
 
-
 	private class AddCustomerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(!main.getSalesperson().getType().equals("StoreManager")) {
+			if(!main.getSalesperson().isStoreManager()) {
 				JOptionPane.showMessageDialog(null, "Invalid Access Level", "", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
@@ -64,11 +70,49 @@ public class CustomerController {
 	private class ViewCustomerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+
+			String custId = JOptionPane.showInputDialog(null, "Enter Customer ID", "Select Customer", JOptionPane.INFORMATION_MESSAGE);
+			int customerId = Integer.parseInt(custId);
+
+			Customer customer = DatabaseController.searchForCustomer(customerId);
+
+			if(customer == null) {
+				JOptionPane.showMessageDialog(null, "Customer Not Found", "", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			main.setCustomer(customer);
+
+			boolean validAccessLevel = true;
+
+			if(
+				customer.checkIfSalespersonIsDesignated(main.getSalesperson()) &&
+				!main.getSalesperson().isStoreManager()
+			) {
+				validAccessLevel = false;
+			}
+
 			customerChoicesMenu.dispose();
 			customerChoicesMenu = null;
-			editCustomerMenu = new EditCustomerGUI();
+			viewCustomerMenu = new ViewCustomerGUI(main.getCustomer(), validAccessLevel);
+			viewCustomerMenu.addReturnToCustomerMenuListener(new ReturnToCustomerMenuListener());
 		}
 	}
+
+    private class ReturnToMainMenuListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            // erase/dispose of car menu
+            customerChoicesMenu.dispose();
+			customerChoicesMenu = null;
+
+            // go back to main menu 
+			new MainController(main.getSalesperson());
+        }
+
+    }
 
 	/*
 	private class CustomerListener implements ActionListener{
@@ -159,6 +203,24 @@ public class CustomerController {
 			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
 			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
 			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
+		}
+
+	}
+
+	private class ReturnToCustomerMenuListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// erase/dispose of car menu
+			viewCustomerMenu.dispose();
+			viewCustomerMenu = null;
+
+			// go back to main menu 
+			customerChoicesMenu = new CustomerMenuGUI();
+			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
+			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
+			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
+			customerChoicesMenu.addReturnToMainMenuListener(new ReturnToMainMenuListener());
 		}
 
 	}

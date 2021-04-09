@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class CustomerMenuGUI extends JFrame{
 
-	private JButton editCustomerButton, viewCustomerButton, addCustomerButton;
+	private JButton editCustomerButton, viewCustomerButton, addCustomerButton, returnToMainMenuButton;
 
 	public CustomerMenuGUI() {
 		super("Login");
@@ -20,9 +20,12 @@ public class CustomerMenuGUI extends JFrame{
 		editCustomerButton = new JButton("Edit Customer Information");
 		viewCustomerButton = new JButton("View Customer Information");
 		addCustomerButton = new JButton("Add New Customer");
+		returnToMainMenuButton = new JButton("Return To Main Menu");
 
 		add(editCustomerButton);
 		add(viewCustomerButton);
+		add(addCustomerButton);
+		add(returnToMainMenuButton);
 
 		setVisible(true);
 	}
@@ -37,6 +40,10 @@ public class CustomerMenuGUI extends JFrame{
 
 	public void addAddCustomerListener(ActionListener actionListener) {
 		addCustomerButton.addActionListener(actionListener);
+	}
+
+	public void addReturnToMainMenuListener(ActionListener actionListener) {
+		returnToMainMenuButton.addActionListener(actionListener);
 	}
 
 	public static void main(String[] args) {

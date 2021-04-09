@@ -33,6 +33,15 @@ public class Customer {
 		this.designatedSalesperson = designatedSalesperson;
 	}
 
+	public boolean checkIfSalespersonIsDesignated(Salesperson salesperson) {
+		if(designatedSalesperson.getId() == salesperson.getId()) {
+			return true;
+		}
+
+		return false;
+	}
+
+
 	public void setCustomer(int customerId, int age, String cardNumber, String name, String email, String phoneNumber, String billingAddress, String cardExpiryDate, 
 						String notes, char gender, ArrayList<LocalDate> visitHistory, Vehicle currentVehicle, ArrayList<Vehicle> vehiclesInterestedIn,
 						Salesperson designatedSalesperson) {

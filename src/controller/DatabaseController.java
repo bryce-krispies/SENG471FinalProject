@@ -28,11 +28,11 @@ public class DatabaseController {
         customerDatabase.add(new Customer(0, 21, "1234123412341234", "Jayden Bischoff", "jb@hotmail.com", 
                                             "+1(123)-456-7890", "177A Bleecker Street, New York, NY", "02/22", 
                                              "", 'F', new ArrayList<LocalDate>(), new Vehicle("Hummer", "BLACK", "YELLOW"), 
-                                             new ArrayList<Vehicle>(), salespersonDatabase.get(2)));
+                                             new ArrayList<Vehicle>(), salespersonDatabase.get(1)));
         customerDatabase.add(new Customer(1, 20, "9867987698769876", "Zachary Lancaster", "zl@hotmail.com", 
                                             "+9(987)-654-3210", "151 Beverly Hills, Los Angeles, CA", "04/26", 
                                             "", 'M', new ArrayList<LocalDate>(), new Vehicle("Beetle", "PURPLE", "BLUE"), 
-                                            new ArrayList<Vehicle>(), salespersonDatabase.get(3)));
+                                            new ArrayList<Vehicle>(), salespersonDatabase.get(2)));
 
         // if yall have a better idea how to do colours, go ahead (enums? constants? i have no idea if we're being honest here)
         vehicleDatabase.add(new Vehicle("Wienermobile", "BROWN", "PINK"));

@@ -21,6 +21,14 @@ public class Salesperson {
 		this.type = type;
 	}
 
+	public boolean isStoreManager() {
+		if(type.equals("StoreManager")) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public void setSalesperson(Salesperson salesperson) {
 		name = salesperson.name;
 		salespersonId = salesperson.salespersonId;
