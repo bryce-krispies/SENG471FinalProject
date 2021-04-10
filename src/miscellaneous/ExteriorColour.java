@@ -2,7 +2,7 @@ package miscellaneous;
 
 public enum ExteriorColour {
 	RED,
-	GREEN,
+	GREY,
 	BLUE,
 	BLACK,
 	WHITE,

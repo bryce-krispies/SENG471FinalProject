@@ -1,7 +1,8 @@
 package miscellaneous;
 
 public enum InteriorColour {
-	RED,
-	GREEN,
-	BLUE
+	BLACK,
+	TAN,
+	BROWN,
+	WHITE
 }

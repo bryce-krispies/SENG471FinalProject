@@ -7,7 +7,11 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import miscellaneous.ExteriorColour;
+import miscellaneous.InteriorColour;
+import model.CarModel;
 import model.Customer;
+import model.Salesperson;
 import model.Vehicle;
 
 public class CustomerController {
@@ -93,17 +97,19 @@ public class CustomerController {
 
 			main.setCustomer(customer);
 
-			if(
-				customer.checkIfSalespersonIsDesignated(main.getSalesperson()) &&
-				!main.getSalesperson().isStoreManager()
-			) {
+			int accessLevel = 0;
+			if(main.getSalesperson().isStoreManager()) {
+				accessLevel = 1;
+			} else if (main.getSalesperson().isDesignated(customer)) {
+				accessLevel = 2;
+			} else {
 				JOptionPane.showMessageDialog(null, "Invalid Access Level", "", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
 			customerChoicesMenu.dispose();
 			customerChoicesMenu = null;
-			editCustomerMenu = new EditCustomerGUI(main.getCustomer());
+			editCustomerMenu = new EditCustomerGUI(main.getCustomer(), accessLevel);
 			editCustomerMenu.addSubmitNewInformationListener(new SubmitNewInformationListener());
 			editCustomerMenu.addReturnToCustomerMenuFromEditListener(new ReturnToCustomerMenuFromEditListener());
 		}
@@ -177,34 +183,43 @@ public class CustomerController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(
-				addCustomerMenu.getAgeField().getText().isBlank() ||
-				addCustomerMenu.getCardNumberField().getText().isBlank() ||
-				addCustomerMenu.getNameField().getText().isBlank() ||
-				addCustomerMenu.getEmailField().getText().isBlank() ||
-				addCustomerMenu.getPhoneField().getText().isBlank() ||
-				addCustomerMenu.getBillingAddressField().getText().isBlank() ||
-				addCustomerMenu.getCardExpiryDateField().getText().isBlank() ||
-				addCustomerMenu.getGenderField().getText().isBlank() ||
-				addCustomerMenu.getCurrentVehicleModelField().getText().isBlank() ||
-				addCustomerMenu.getCurrentVehicleExteriorField().getText().isBlank() ||
-				addCustomerMenu.getCurrentVehicleInteriorField().getText().isBlank() ||
-				addCustomerMenu.getDesignatedSalespersonField().getText().isBlank()
+				addCustomerMenu.getAgeField().isBlank() ||
+				addCustomerMenu.getNameField().isBlank() ||
+				addCustomerMenu.getEmailField().isBlank() ||
+				addCustomerMenu.getPhoneNumberField().isBlank() ||
+				addCustomerMenu.getBillingAddressField().isBlank() ||
+				addCustomerMenu.getCardNumberField().isBlank() ||
+				addCustomerMenu.getCardExpiryDateField().isBlank() ||
+				addCustomerMenu.getCurrentVehicleBrandField().isBlank() ||
+				addCustomerMenu.getCurrentVehicleModelField().isBlank() ||
+				addCustomerMenu.getCurrentVehicleYearField().isBlank() ||
+				addCustomerMenu.getCurrentVehiclePriceField().isBlank() ||
+				addCustomerMenu.getCurrentVehicleExteriorField().isBlank() ||
+				addCustomerMenu.getCurrentVehicleInteriorField().isBlank()
 			) {
 				JOptionPane.showMessageDialog(null, "Improper format for input(s)", "", JOptionPane.ERROR_MESSAGE);
 			} else {
-				//TODO
-				// Customer customer = new Customer(DatabaseController.getUniqueId(), 
-				// 									Integer.parseInt(addCustomerMenu.getAgeField().getText()), addCustomerMenu.getCardNumberField().getText(), 
-				// 									addCustomerMenu.getNameField().getText(), addCustomerMenu.getEmailField().getText(), 
-				// 									addCustomerMenu.getPhoneField().getText(), addCustomerMenu.getBillingAddressField().getText(), 
-				// 									addCustomerMenu.getCardExpiryDateField().getText(), "", 
-				// 									addCustomerMenu.getGenderField().getText().toCharArray()[0], new ArrayList<LocalDate>(), 
-				// 									new Vehicle(addCustomerMenu.getCurrentVehicleModelField().getText(), 
-				// addCustomerMenu.getCurrentVehicleExteriorField().getText(), 
-				// addCustomerMenu.getCurrentVehicleInteriorField().getText()), new ArrayList<Vehicle>(), 
-				// DatabaseController.getSalesperson(Integer.parseInt(addCustomerMenu.getDesignatedSalespersonField().getText())));
 
-				// DatabaseController.addCustomer(customer);
+				CarModel carModel = new CarModel(addCustomerMenu.getCurrentVehicleBrandField(), addCustomerMenu.getCurrentVehicleModelField(), 
+				Integer.parseInt(addCustomerMenu.getCurrentVehicleYearField()), Double.parseDouble(addCustomerMenu.getCurrentVehiclePriceField()));
+				Vehicle vehicle = new Vehicle(carModel, ExteriorColour.BLACK, InteriorColour.BLACK);
+
+				ArrayList<LocalDate> visitHistory = new ArrayList<LocalDate>();
+				visitHistory.add(LocalDate.now());
+
+				Salesperson salesperson = DatabaseController.getSalesperson(addCustomerMenu.getDesignatedSalespersonChoice());
+
+				Customer customer = new Customer(DatabaseController.getUniqueId(), Integer.parseInt(addCustomerMenu.getAgeField()), 
+				addCustomerMenu.getCardNumberField(), addCustomerMenu.getNameField(), 
+				addCustomerMenu.getEmailField(), addCustomerMenu.getPhoneNumberField(), 
+				addCustomerMenu.getBillingAddressField(), addCustomerMenu.getCardExpiryDateField(), 
+				"", addCustomerMenu.getGenderChoice().toCharArray()[0], 
+				visitHistory, 
+				vehicle, 
+				null, 
+				salesperson);
+
+				DatabaseController.addCustomer(customer);
 			}
 			
 			editCustomerMenu.dispose();

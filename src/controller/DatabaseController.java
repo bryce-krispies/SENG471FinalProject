@@ -23,7 +23,7 @@ public class DatabaseController {
         carModelDatabase = new ArrayList<CarModel>();
 
         //TODO Add car model pictures to car model and ArrayList<images> in carModel.java (maybe??)
-        carModelDatabase.add(new CarModel("Toyota", "Camry", 2018, 20300));
+        carModelDatabase.add(new CarModel("Lincoln", "MKZ", 2020, 20300));
         carModelDatabase.add(new CarModel("Ford", "Mustang", 2020, 40790));
 
         salespersonDatabase.add(new Salesperson("0", "Bryce Cayanan", "a", SalespersonType.STOREMANAGER)); //demonstrate store manager functionality
@@ -33,12 +33,12 @@ public class DatabaseController {
         customerDatabase.add(new Customer("0", 21, "1234123412341234", "Jayden Bischoff", "jb@hotmail.com", 
                                             "+1(123)-456-7890", "177A Bleecker Street, New York, NY", "02/22", 
                                             "", 'F', new ArrayList<LocalDate>(), 
-                                            new Vehicle(carModelDatabase.get(0), ExteriorColour.BLACK, InteriorColour.GREEN),
+                                            new Vehicle(carModelDatabase.get(0), ExteriorColour.BLACK, InteriorColour.BLACK),
                                             null, salespersonDatabase.get(1)));
         customerDatabase.add(new Customer("1", 20, "9867987698769876", "Zachary Lancaster", "zl@hotmail.com", 
                                             "+9(987)-654-3210", "151 Beverly Hills, Los Angeles, CA", "04/26", 
                                             "", 'M', new ArrayList<LocalDate>(), 
-                                            new Vehicle(carModelDatabase.get(1), ExteriorColour.BLACK, InteriorColour.GREEN),
+                                            new Vehicle(carModelDatabase.get(1), ExteriorColour.BLACK, InteriorColour.BLACK),
                                             null, salespersonDatabase.get(2)));
     }
     
@@ -93,6 +93,22 @@ public class DatabaseController {
 
     public static ArrayList<CarModel> retrieveModels() {
         return carModelDatabase;
+    }
+
+    public static String[] getSalespersons() {
+        ArrayList<String> employees = new ArrayList<String>();
+        for(Salesperson s : salespersonDatabase) {
+            if(!s.isStoreManager()) {
+                employees.add(s.getId());
+            }
+        }
+
+        String[] toSend = new String[employees.size()];
+        for(int i = 0; i < toSend.length; ++i) {
+            toSend[i] = employees.get(i);
+        }
+
+        return toSend;
     }
 
     public static String getUniqueId() {
