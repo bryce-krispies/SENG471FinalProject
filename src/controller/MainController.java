@@ -81,7 +81,7 @@ public class MainController {
 			customer = null;
 
 			DatabaseController.initializeDatabase();
-        	new LoginController();
+        	//new LoginController();
 		}
 	}
 
@@ -92,6 +92,6 @@ public class MainController {
 
     public static void main(String [] args) {
 		DatabaseController.initializeDatabase();
-        new LoginController();
+        //new LoginController();
     }
 }

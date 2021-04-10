@@ -1,5 +1,6 @@
 package controller;
 
+import view.GUIPane;
 import view.LoginGUI;
 import java.awt.event.*;
 
@@ -10,11 +11,26 @@ import model.Salesperson;
 public class LoginController {
 	
 	private LoginGUI loginMenu;
+	private GUIPane mainGUI;
 
-	public LoginController() {
+	public LoginController(GUIPane mainGUI) {
+		
+		this.mainGUI = mainGUI;
 		loginMenu = new LoginGUI();
-
 		loginMenu.addLoginListener(new LoginListener());
+		loginMenu.addCancelListener(new CancelListener());
+	}
+	
+	public LoginGUI getLoginGUI() {
+		
+		return loginMenu;
+		
+	}
+	
+	public void setLoginGUI(LoginGUI loginMenu) {
+		
+		this.loginMenu = loginMenu;
+		
 	}
 
 	private class LoginListener implements ActionListener{
@@ -38,12 +54,31 @@ public class LoginController {
 				return;
 			}
 
-			loginMenu.dispose();
-			loginMenu = null;
+//			loginMenu.dispose();
+//			loginMenu = null;
 
 			new MainController(salesperson);
 		}
 	}
 
+	private class CancelListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getContentPane().add(mainGUI.getStartMenuController().getStartMenuGUI());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.getStartMenuController().getMainGUI().paintComponents(mainGUI.getGraphics());
+			mainGUI.update(mainGUI.getGraphics());
+			
+		}
+		
+		
+		
+	}
 
 }

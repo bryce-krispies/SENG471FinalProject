@@ -1,93 +1,63 @@
 package view;
 
 import java.awt.*;
-import java.io.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
+
+import controller.*;
 
 @SuppressWarnings("serial")
 public class GUIPane extends JFrame{
-
-	private MenuPanel mainMenu;
+	
+	private StartMenuController startMenuController;
+	private LoginController loginController;
+	
 	
 	public GUIPane() {
 		
 		super("CADA Modeling Software");
 		
-		mainMenu = new MenuPanel();
-		this.add(mainMenu);
+		setStartMenuController(new StartMenuController(this));
+		setLoginController(new LoginController(this));
 		
-		setSize(900,576);
+		this.add(startMenuController.getStartMenuGUI());
+
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		
+		setLocation((toolkit.getScreenSize().width-1000)/2, (toolkit.getScreenSize().height-640)/2);
+		setUndecorated(true);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setSize(1000,640);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
+		setResizable(false);
 		setVisible(true);
 		
-		mainMenu.paintComponent(getGraphics());
+		startMenuController.getMainGUI().paintComponents(getGraphics());
 		
 	}
 	
-	private class MenuPanel extends JPanel{
-		
-		private Image image;
-		private JTextField title;
-		private JButton salespersonLogin;
-		private JButton quit;
-		
-		public MenuPanel() {
-			
-			try {
-				image = ImageIO.read(new File("resources\\background.jpg"));
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(1);
-			}
-			
-			title = new JTextField("Welcome to the CADA Car Customization System");
-			title.setHorizontalAlignment(JTextField.CENTER);
-			title.setBorder(BorderFactory.createBevelBorder(1, new Color(96,77,70), new Color(196,177,170)));
-			title.setDisabledTextColor(new Color(96,77,70));
-			title.setSize(46, 1);
-			title.setEnabled(false);
-			title.setFont(new Font("Serif", Font.BOLD, 35));
-			
-			this.add(title);
-			
-			JTextArea filler = new JTextArea("                                   ");
-			filler.setSize(new Dimension(46, 5));
-			filler.setFont(new Font("Serif", Font.BOLD, 100));
-			filler.setEnabled(false);
-			filler.setOpaque(false);
-			this.add(filler);
-			
-			salespersonLogin = new JButton("Salesperson Login");
-			salespersonLogin.setBackground(new Color(213, 183, 147));
-			salespersonLogin.setFont(new Font("Serif", Font.BOLD, 20));
-			this.add(salespersonLogin);
-			
-			JTextArea fillerTwo = new JTextArea("                        "
-					+ "                                                  "
-					+ "                                                  ");
-			fillerTwo.setSize(new Dimension(46, 5));
-			fillerTwo.setFont(new Font("Serif", Font.BOLD, 30));
-			fillerTwo.setEnabled(false);
-			fillerTwo.setOpaque(false);
-			this.add(fillerTwo);
-			
-			quit = new JButton("Quit");
-			quit.setBackground(new Color(213, 183, 147));
-			quit.setFont(new Font("Serif", Font.BOLD, 20));
-			this.add(quit);
-			
-		}
-		
-		public void paintComponent(Graphics g) {
-			
-			g.drawImage(image, 0, 0, null);
-			
-		}
-		
+	
+
+	public StartMenuController getStartMenuController() {
+		return startMenuController;
 	}
+
+
+
+	public void setStartMenuController(StartMenuController startMenuController) {
+		this.startMenuController = startMenuController;
+	}
+
+
+
+	public LoginController getLoginController() {
+		return loginController;
+	}
+
+
+
+	public void setLoginController(LoginController loginController) {
+		this.loginController = loginController;
+	}
+
 	
 }
