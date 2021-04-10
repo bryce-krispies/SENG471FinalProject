@@ -25,10 +25,13 @@ public class LoginController {
 				return;
 			}
 
-			int empID = Integer.parseInt(loginMenu.getIDField().getText());
+			String empId = loginMenu.getIDField().getText();
 			String password = new String(loginMenu.getPasswordField().getPassword());
 
-			Salesperson salesperson = DatabaseController.searchForSalesperson(empID, password);
+			Salesperson salesperson = null;
+			if(DatabaseController.validateSalesperson(empId, password)) {
+				salesperson = DatabaseController.getSalesperson(empId);
+			}
 
 			if (salesperson == null) {
 				JOptionPane.showMessageDialog(null, "Wrong id or password", "Error", JOptionPane.ERROR_MESSAGE);

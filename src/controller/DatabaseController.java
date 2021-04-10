@@ -32,14 +32,14 @@ public class DatabaseController {
 
         customerDatabase.add(new Customer("0", 21, "1234123412341234", "Jayden Bischoff", "jb@hotmail.com", 
                                             "+1(123)-456-7890", "177A Bleecker Street, New York, NY", "02/22", 
-                                             "", 'F', new ArrayList<LocalDate>(), 
-                                             new Vehicle(carModelDatabase.get(0), ExteriorColour.BLACK, InteriorColour.GREEN), 
-                                             new ArrayList<Vehicle>(), salespersonDatabase.get(1)));
+                                            "", 'F', new ArrayList<LocalDate>(), 
+                                            new Vehicle(carModelDatabase.get(0), ExteriorColour.BLACK, InteriorColour.GREEN),
+                                            null, salespersonDatabase.get(1)));
         customerDatabase.add(new Customer("1", 20, "9867987698769876", "Zachary Lancaster", "zl@hotmail.com", 
                                             "+9(987)-654-3210", "151 Beverly Hills, Los Angeles, CA", "04/26", 
                                             "", 'M', new ArrayList<LocalDate>(), 
                                             new Vehicle(carModelDatabase.get(1), ExteriorColour.BLACK, InteriorColour.GREEN),
-                                            new ArrayList<Vehicle>(), salespersonDatabase.get(2)));
+                                            null, salespersonDatabase.get(2)));
     }
     
     public static boolean validateSalesperson(String empId, String password) {

@@ -13,7 +13,7 @@ public class CustomerMenuGUI extends JFrame{
 	public CustomerMenuGUI() {
 		super("Login");
 		setUndecorated(true);
-		setSize(500, 500);
+		setSize(750, 500);
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(1, 3));
 
@@ -44,10 +44,6 @@ public class CustomerMenuGUI extends JFrame{
 
 	public void addReturnToMainMenuListener(ActionListener actionListener) {
 		returnToMainMenuButton.addActionListener(actionListener);
-	}
-
-	public static void main(String[] args) {
-		new CustomerMenuGUI();
 	}
 
 }

@@ -11,13 +11,12 @@ public class Customer {
 	private String customerId, name, email, phoneNumber, billingAddress, cardNumber, cardExpiryDate, notes;
 	private char gender;
 	private ArrayList<LocalDate> visitHistory;
-	private Vehicle currentVehicle;
-	private ArrayList<Vehicle> vehiclesInterestedIn;
+	private Vehicle currentVehicle, desiredVehicle;
 	private Salesperson designatedSalesperson;
 
 
 	public Customer(String customerId, int age, String cardNumber, String name, String email, String phoneNumber, String billingAddress, String cardExpiryDate, 
-						String notes, char gender, ArrayList<LocalDate> visitHistory, Vehicle currentVehicle, ArrayList<Vehicle> vehiclesInterestedIn,
+						String notes, char gender, ArrayList<LocalDate> visitHistory, Vehicle currentVehicle, Vehicle desiredVehicle,
 						Salesperson designatedSalesperson) {
 		this.customerId = customerId;
 		this.age = age;
@@ -31,7 +30,7 @@ public class Customer {
 		this.gender = gender;
 		this.visitHistory = visitHistory;
 		this.currentVehicle = currentVehicle;
-		this.vehiclesInterestedIn = vehiclesInterestedIn;
+		this.desiredVehicle = desiredVehicle;
 		this.designatedSalesperson = designatedSalesperson;
 	}
 
@@ -43,9 +42,8 @@ public class Customer {
 		return false;
 	}
 
-
 	public void setCustomer(String customerId, int age, String cardNumber, String name, String email, String phoneNumber, String billingAddress, String cardExpiryDate, 
-						String notes, char gender, ArrayList<LocalDate> visitHistory, Vehicle currentVehicle, ArrayList<Vehicle> vehiclesInterestedIn,
+						String notes, char gender, ArrayList<LocalDate> visitHistory, Vehicle currentVehicle, Vehicle desiredVehicle,
 						Salesperson designatedSalesperson) {
 		this.customerId = customerId;
 		this.age = age;
@@ -59,7 +57,7 @@ public class Customer {
 		this.gender = gender;
 		this.visitHistory = visitHistory;
 		this.currentVehicle = currentVehicle;
-		this.vehiclesInterestedIn = vehiclesInterestedIn;
+		this.desiredVehicle = desiredVehicle;
 		this.designatedSalesperson = designatedSalesperson;
 	}
 
@@ -76,7 +74,7 @@ public class Customer {
 		gender = customer.gender;
 		visitHistory = customer.visitHistory;
 		currentVehicle = customer.currentVehicle;
-		vehiclesInterestedIn = customer.vehiclesInterestedIn;
+		desiredVehicle = customer.desiredVehicle;
 		designatedSalesperson = customer.designatedSalesperson;
 	}
 
@@ -164,14 +162,11 @@ public class Customer {
 		this.currentVehicle = currentVehicle;
 	}
 
-	public ArrayList<Vehicle> getVehiclesInterestedIn() {
-		return vehiclesInterestedIn;
+	public Vehicle getDesiredVehicle() {
+		return desiredVehicle;
 	}
-	public void setVehiclesInterestedIn(ArrayList<Vehicle> vehiclesInterestedIn) {
-		this.vehiclesInterestedIn = vehiclesInterestedIn;
-	}
-	public void addNewVehicleInterestedIn(Vehicle newVehicleInterestedIn) {
-		vehiclesInterestedIn.add(newVehicleInterestedIn);
+	public void setDesiredVehicle(Vehicle desiredVehicle) {
+		this.desiredVehicle = desiredVehicle;
 	}
 
 	public Salesperson getDesignatedSalesperson() {

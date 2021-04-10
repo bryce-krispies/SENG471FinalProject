@@ -6,7 +6,6 @@ import java.awt.event.*;
 
 import javax.swing.JOptionPane;
 
-
 public class MainController {
 
     private Salesperson salesperson;
@@ -42,14 +41,23 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String custId = JOptionPane.showInputDialog(null, "Enter Customer ID", "Select Customer", JOptionPane.INFORMATION_MESSAGE);
-			int customerId = Integer.parseInt(custId);
 
-			Customer customer = DatabaseController.searchForCustomer(customerId);
+			if(custId == null) {
+				return;
+			}
+
+			Customer customer = DatabaseController.getCustomer(custId);
+
+			if(customer == null) {
+				JOptionPane.showMessageDialog(null, "Customer Not Found", "", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
 			MainController main = mainMenu.getMainController();
 
 			if(
 				(customer.getDesignatedSalesperson().getId() != main.getSalesperson().getId()) &&
-				!main.getSalesperson().getType().equals("StoreManager")
+				!main.getSalesperson().isStoreManager()
 			) {
 				JOptionPane.showMessageDialog(null, "Invalid Access Level", "", JOptionPane.ERROR_MESSAGE);
 				return;
@@ -77,24 +85,10 @@ public class MainController {
 		}
 	}
 
-    public MainMenuGUI getMainMenu() {
-        return mainMenu;
-    }
-
-	public Customer getCustomer() {
-		return customer;
-	}
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public Salesperson getSalesperson() {
-		return salesperson;
-	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
+	public Customer getCustomer() { return customer; }
+	public void setCustomer(Customer customer) { this.customer = customer; }
+	public Salesperson getSalesperson() { return salesperson; }
+	public Vehicle getVehicle() { return vehicle; }
 
     public static void main(String [] args) {
 		DatabaseController.initializeDatabase();

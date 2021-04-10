@@ -35,7 +35,7 @@ class VehicleCustomizationController {
             //here check if the vehicle is valid
 
             //save car model into customer within the database
-            main.getCustomer().addNewVehicleInterestedIn(main.getVehicle());
+            main.getCustomer().setDesiredVehicle(main.getVehicle());
             DatabaseController.saveCustomer(main.getCustomer());
 
             // erase/dispose of car menu

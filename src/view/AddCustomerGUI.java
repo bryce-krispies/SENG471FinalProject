@@ -90,45 +90,17 @@ public class AddCustomerGUI extends JFrame {
 		returnToCustomerMenuButton.addActionListener(actionListener);
 	}
 
-	public JTextField getAgeField() {
-		return ageField;
-	}
-	public JTextField getCardNumberField() {
-		return cardNumberField;
-	}
-	public JTextField getNameField() {
-		return nameField;
-	}
-	public JTextField getEmailField() {
-		return emailField;
-	}
-	public JTextField getPhoneField() {
-		return phoneNumberField;
-	}
-	public JTextField getBillingAddressField() {
-		return billingAddressField;
-	}
-	public JTextField getCardExpiryDateField() {
-		return cardExpiryDateField;
-	}
-	public JTextField getGenderField() {
-		return genderField;
-	} 
-	public JTextField getCurrentVehicleModelField() {
-		return currentVehicleModelField;
-	} 
-	public JTextField getCurrentVehicleExteriorField() {
-		return currentVehicleExteriorField;
-	}
-	public JTextField getCurrentVehicleInteriorField() {
-		return currentVehicleInteriorField;
-	}
-	public JTextField getDesignatedSalespersonField() {
-		return designatedSalespersonField;
-	}
-
-	public static void main(String[] args) {
-		new AddCustomerGUI();
-	}
+	public JTextField getAgeField() { return ageField; }
+	public JTextField getCardNumberField() { return cardNumberField; }
+	public JTextField getNameField() { return nameField; }
+	public JTextField getEmailField() { return emailField; }
+	public JTextField getPhoneField() { return phoneNumberField; }
+	public JTextField getBillingAddressField() { return billingAddressField; }
+	public JTextField getCardExpiryDateField() { return cardExpiryDateField; }
+	public JTextField getGenderField() { return genderField; } 
+	public JTextField getCurrentVehicleModelField() { return currentVehicleModelField; } 
+	public JTextField getCurrentVehicleExteriorField() { return currentVehicleExteriorField; }
+	public JTextField getCurrentVehicleInteriorField() { return currentVehicleInteriorField; }
+	public JTextField getDesignatedSalespersonField() { return designatedSalespersonField; }
 
 }

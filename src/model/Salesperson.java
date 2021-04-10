@@ -31,6 +31,14 @@ public class Salesperson {
 		return false;
 	}
 
+	public boolean isDesignated(Customer customer) {
+		if(customer.getDesignatedSalesperson().getId().equals(salespersonId)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public void setSalesperson(Salesperson salesperson) {
 		name = salesperson.name;
 		salespersonId = salesperson.salespersonId;
