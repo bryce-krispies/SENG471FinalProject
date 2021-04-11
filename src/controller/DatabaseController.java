@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -122,4 +123,94 @@ public class DatabaseController {
         return String.valueOf(id);
     }
 
+    public static File getCarImage(String fileName) {
+        return new File(fileName);
+    }
+
+    public static Vehicle getVehicle(String modelSelected, String exteriorColourSelected, String interiorColourSelected) {
+        CarModel model = null;
+
+        for(int i = 0; i < carModelDatabase.size(); i++) {
+            if(carModelDatabase.get(i).getModel() == modelSelected) {
+                model = carModelDatabase.get(i);
+                break;
+            }
+        }
+
+        if(exteriorColourSelected == "Black") {
+            if(interiorColourSelected == "Black") {
+                return new Vehicle(model, ExteriorColour.BLACK, InteriorColour.BLACK);
+            }
+            else if(interiorColourSelected == "White") {
+                return new Vehicle(model, ExteriorColour.BLACK, InteriorColour.WHITE);
+            }
+            else if(interiorColourSelected == "Tan") {
+                return new Vehicle(model, ExteriorColour.BLACK, InteriorColour.TAN);
+            }
+            else if(interiorColourSelected == "Brown") {
+                return new Vehicle(model, ExteriorColour.BLACK, InteriorColour.BROWN);
+            }
+        }
+
+        else if(exteriorColourSelected == "Blue") {
+            if(interiorColourSelected == "Black") {
+                return new Vehicle(model, ExteriorColour.BLUE, InteriorColour.BLACK);
+            }
+            else if(interiorColourSelected == "White") {
+                return new Vehicle(model, ExteriorColour.BLUE, InteriorColour.WHITE);
+            }
+            else if(interiorColourSelected == "Tan") {
+                return new Vehicle(model, ExteriorColour.BLUE, InteriorColour.TAN);
+            }
+            else if(interiorColourSelected == "Brown") {
+                return new Vehicle(model, ExteriorColour.BLUE, InteriorColour.BROWN);
+            }
+        }
+
+        else if(exteriorColourSelected == "Red") {
+            if(interiorColourSelected == "Black") {
+                return new Vehicle(model, ExteriorColour.RED, InteriorColour.BLACK);
+            }
+            else if(interiorColourSelected == "White") {
+                return new Vehicle(model, ExteriorColour.RED, InteriorColour.WHITE);
+            }
+            else if(interiorColourSelected == "Tan") {
+                return new Vehicle(model, ExteriorColour.RED, InteriorColour.TAN);
+            }
+            else if(interiorColourSelected == "Brown") {
+                return new Vehicle(model, ExteriorColour.RED, InteriorColour.BROWN);
+            }
+        }
+
+        else if(exteriorColourSelected == "White") {
+            if(interiorColourSelected == "Black") {
+                return new Vehicle(model, ExteriorColour.WHITE, InteriorColour.BLACK);
+            }
+            else if(interiorColourSelected == "White") {
+                return new Vehicle(model, ExteriorColour.WHITE, InteriorColour.WHITE);
+            }
+            else if(interiorColourSelected == "Tan") {
+                return new Vehicle(model, ExteriorColour.WHITE, InteriorColour.TAN);
+            }
+            else if(interiorColourSelected == "Brown") {
+                return new Vehicle(model, ExteriorColour.WHITE, InteriorColour.BROWN);
+            }
+        }
+
+        else if(exteriorColourSelected == "Grey") {
+            if(interiorColourSelected == "Black") {
+                return new Vehicle(model, ExteriorColour.GREY, InteriorColour.BLACK);
+            }
+            else if(interiorColourSelected == "White") {
+                return new Vehicle(model, ExteriorColour.GREY, InteriorColour.WHITE);
+            }
+            else if(interiorColourSelected == "Tan") {
+                return new Vehicle(model, ExteriorColour.GREY, InteriorColour.TAN);
+            }
+            else if(interiorColourSelected == "Brown") {
+                return new Vehicle(model, ExteriorColour.GREY, InteriorColour.BROWN);
+            }
+        }
+        return null;
+    }
 }

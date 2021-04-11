@@ -89,6 +89,7 @@ public class MainController {
 	public void setCustomer(Customer customer) { this.customer = customer; }
 	public Salesperson getSalesperson() { return salesperson; }
 	public Vehicle getVehicle() { return vehicle; }
+	public void setVehicle(Vehicle v) { this.vehicle = v; }
 
     public static void main(String [] args) {
 		DatabaseController.initializeDatabase();
