@@ -54,11 +54,19 @@ class VehicleCustomizationController {
             if(viewSelected == "Interior") {
                 viewSelected = "int";
             }
-            if(viewSelected == "dash" || viewSelected == "int") {
-                fileName = "resources\\" + modelSelected + "_" + viewSelected.toLowerCase() + "_null_" + interiorColourSelected.toLowerCase() + ".png";
+            if(modelSelected == "MKZ") {
+                if (viewSelected == "dash" || viewSelected == "int") {
+                    fileName = "resources\\" + modelSelected + "_" + viewSelected.toLowerCase() + "_null_" + interiorColourSelected.toLowerCase() + ".png";
+                } else {
+                    fileName = "resources\\" + modelSelected + "_" + viewSelected.toLowerCase() + "_" + exteriorColourSelected.toLowerCase() + "_null.png";
+                }
             }
-            else {
-                fileName = "resources\\" + modelSelected + "_" + viewSelected.toLowerCase() + "_" + exteriorColourSelected.toLowerCase() + "_null.png";
+            else{
+                if (viewSelected == "dash" || viewSelected == "int") {
+                    fileName = "resources\\" + modelSelected + "_" + viewSelected.toLowerCase() + "_" + exteriorColourSelected.toLowerCase() + "_" + interiorColourSelected.toLowerCase() + ".png";
+                } else {
+                    fileName = "resources\\" + modelSelected + "_" + viewSelected.toLowerCase() + "_" + exteriorColourSelected.toLowerCase() + "_null.png";
+                }
             }
             customizeCarMenu.displayCarView(DatabaseController.getCarImage(fileName));
         }
