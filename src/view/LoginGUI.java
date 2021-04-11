@@ -13,8 +13,6 @@ public class LoginGUI extends JPanel {
 	
 	private Image image;
 	
-	GUIPane mainGUI;
-	
 	private JButton loginButton;
 	private JButton cancelButton;
 	private JTextField idField;
@@ -37,14 +35,14 @@ public class LoginGUI extends JPanel {
 	public void setup() {
 		
 		title = new JTextArea("Login");
-		title.setDisabledTextColor(new Color(135,197,218));
-		title.setFont(new Font("Serif", Font.BOLD, 80));
+		title.setDisabledTextColor(new Color(162,203,216));
+		title.setFont(new Font("Lucida Sans", Font.PLAIN, 80));
 		title.setEnabled(false);
 		this.add(title);
 		
-		addFiller(100, "             ");
-		addFiller(100, "                                             ");
-		addFiller(50, "  ");
+		addFiller(40, "                                                                "
+				+ "                                       ");
+		addFiller(50, "  "); 
 		
 		JLabel idLabel = new JLabel("Salesperson ID");
 		this.add(idLabel);
@@ -63,9 +61,13 @@ public class LoginGUI extends JPanel {
 		addFiller(100, "      ");
 		
 		cancelButton = new JButton("Cancel");
+		cancelButton.setBackground(new Color(162,203,216));
+		cancelButton.setFont(new Font("Lucida Sans", Font.PLAIN, 20));
 		this.add(cancelButton);
 		
 		loginButton = new JButton("Login");
+		loginButton.setBackground(new Color(162,203,216));
+		loginButton.setFont(new Font("Lucida Sans", Font.PLAIN, 20));
 		this.add(loginButton);
 		
 		addFiller(100, "                   ");
@@ -106,4 +108,10 @@ public class LoginGUI extends JPanel {
 		cancelButton.addActionListener(cancelListener);
 		
 	}
+
+	public void clearFields() {
+		idField.setText("");
+		passwordField.setText("");
+	}
+	
 }
