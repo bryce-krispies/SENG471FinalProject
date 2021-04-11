@@ -43,7 +43,7 @@ class VehicleCustomizationController {
 			customizeCarMenu = null;
 
             // go back to main menu 
-			new MainController(main.getSalesperson());
+			//new MainController(main.getSalesperson());
         }
 
     }
@@ -58,7 +58,7 @@ class VehicleCustomizationController {
 			customizeCarMenu = null;
 
             // go back to main menu 
-			new MainController(main.getSalesperson());
+			//new MainController(main.getSalesperson());
         }
 
     }

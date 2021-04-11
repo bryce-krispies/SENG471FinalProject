@@ -10,7 +10,8 @@ public class GUIPane extends JFrame{
 	
 	private StartMenuController startMenuController;
 	private LoginController loginController;
-	
+	private MainController mainController;
+	private CustomerController customerController;
 	
 	public GUIPane() {
 		
@@ -18,6 +19,8 @@ public class GUIPane extends JFrame{
 		
 		setStartMenuController(new StartMenuController(this));
 		setLoginController(new LoginController(this));
+		setMainController(new MainController(this));
+		customerController = (new CustomerController(mainController, this));
 		
 		this.add(startMenuController.getStartMenuGUI());
 
@@ -57,6 +60,30 @@ public class GUIPane extends JFrame{
 
 	public void setLoginController(LoginController loginController) {
 		this.loginController = loginController;
+	}
+
+
+
+	public MainController getMainController() {
+		return mainController;
+	}
+
+
+
+	public void setMainController(MainController mainController) {
+		this.mainController = mainController;
+	}
+
+
+
+	public CustomerController getCustomerController() {
+		return customerController;
+	}
+
+
+
+	public void setCustomerController(CustomerController customerController) {
+		this.customerController = customerController;
 	}
 
 	

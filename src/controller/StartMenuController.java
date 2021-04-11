@@ -51,13 +51,11 @@ public class StartMenuController {
 			mainGUI.getContentPane().removeAll();
 			mainGUI.getContentPane().invalidate();
 			
+			mainGUI.getLoginController().getLoginGUI().paintComponents(mainGUI.getGraphics());
 			mainGUI.getContentPane().add(mainGUI.getLoginController().getLoginGUI());
 			mainGUI.getContentPane().revalidate();
 			
-			mainGUI.getLoginController().getLoginGUI().paintComponents(mainGUI.getGraphics());
 			mainGUI.update(mainGUI.getGraphics());
-			
-			
 			
 		}
 		

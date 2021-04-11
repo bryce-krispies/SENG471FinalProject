@@ -11,29 +11,37 @@ public class MainController {
     private Salesperson salesperson;
     private Vehicle vehicle;
     private Customer customer;
-
+	private GUIPane mainGUI;
+    
     private MainMenuGUI mainMenu;
 
-	public MainController(Salesperson salesperson) {
-		this.salesperson = salesperson;
+	public MainController(GUIPane mainGUI) {
+		
+		this.mainGUI = mainGUI;
+		
+		salesperson = null;
 		vehicle = null;
         customer = null;
 
-		mainMenu = new MainMenuGUI(this);
-        mainMenu.addCustomerMenuGUIButtonListener(new ChooseCustomerMenuGUI());
-        mainMenu.addCustomizeCarGUIButtonListener(new ChooseCustomizeCarGUI());
-		mainMenu.addLogoutButtonListener(new ChooseLogout());
+		setMainMenu(new MainMenuGUI(this));
+        getMainMenu().addCustomerMenuGUIButtonListener(new ChooseCustomerMenuGUI());
+        getMainMenu().addCustomizeCarGUIButtonListener(new ChooseCustomizeCarGUI());
+		getMainMenu().addLogoutButtonListener(new ChooseLogout());
 	}
+	
 
     private class ChooseCustomerMenuGUI implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			MainController main = mainMenu.getMainController();
 
-			mainMenu.dispose();
-			mainMenu = null;
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getContentPane().add(mainGUI.getCustomerController().getCustomerChoicesMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
 
-			new CustomerController(main);
 		}
 	}
 
@@ -53,7 +61,7 @@ public class MainController {
 				return;
 			}
 
-			MainController main = mainMenu.getMainController();
+			MainController main = getMainMenu().getMainController();
 
 			if(
 				(customer.getDesignatedSalesperson().getId() != main.getSalesperson().getId()) &&
@@ -63,8 +71,8 @@ public class MainController {
 				return;
 			}
 
-			mainMenu.dispose();
-			mainMenu = null;
+			//mainMenu.dispose();
+			//mainMenu = null;
 
 			new VehicleCustomizationController(main);
 		}
@@ -73,25 +81,33 @@ public class MainController {
 	private class ChooseLogout implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mainMenu.dispose();
-			mainMenu = null;
+
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getContentPane().add(mainGUI.getStartMenuController().getStartMenuGUI());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.getStartMenuController().getMainGUI().paintComponents(mainGUI.getGraphics());
+			mainGUI.update(mainGUI.getGraphics());
 
 			salesperson = null;
 			vehicle = null;
 			customer = null;
 
-			DatabaseController.initializeDatabase();
-        	//new LoginController();
 		}
 	}
 
 	public Customer getCustomer() { return customer; }
 	public void setCustomer(Customer customer) { this.customer = customer; }
 	public Salesperson getSalesperson() { return salesperson; }
+	public void setSalesperson(Salesperson salesperson) { this.salesperson = salesperson; }
 	public Vehicle getVehicle() { return vehicle; }
 
-    public static void main(String [] args) {
-		DatabaseController.initializeDatabase();
-        //new LoginController();
-    }
+	public MainMenuGUI getMainMenu() {
+		return mainMenu;
+	}
+	public void setMainMenu(MainMenuGUI mainMenu) {
+		this.mainMenu = mainMenu;
+	}
 }

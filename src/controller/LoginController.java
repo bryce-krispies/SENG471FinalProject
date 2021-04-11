@@ -54,10 +54,19 @@ public class LoginController {
 				return;
 			}
 
-//			loginMenu.dispose();
-//			loginMenu = null;
+			loginMenu.clearFields();
 
-			new MainController(salesperson);
+			mainGUI.getMainController().setSalesperson(salesperson);
+			
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getMainController().getMainMenu().paintComponents(mainGUI.getGraphics());
+			mainGUI.getContentPane().add(mainGUI.getMainController().getMainMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
 		}
 	}
 
@@ -72,8 +81,9 @@ public class LoginController {
 			mainGUI.getContentPane().add(mainGUI.getStartMenuController().getStartMenuGUI());
 			mainGUI.getContentPane().revalidate();
 			
-			mainGUI.getStartMenuController().getMainGUI().paintComponents(mainGUI.getGraphics());
 			mainGUI.update(mainGUI.getGraphics());
+			
+			loginMenu.clearFields();
 			
 		}
 		

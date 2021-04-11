@@ -7,12 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import miscellaneous.ExteriorColour;
-import miscellaneous.InteriorColour;
-import model.CarModel;
-import model.Customer;
-import model.Salesperson;
-import model.Vehicle;
+import miscellaneous.*;
+import model.*;
 
 public class CustomerController {
 	private MainController main;
@@ -20,15 +16,31 @@ public class CustomerController {
 	private AddCustomerGUI addCustomerMenu;
 	private EditCustomerGUI editCustomerMenu;
 	private ViewCustomerGUI viewCustomerMenu;
+	
+	private GUIPane mainGUI;
 
-	public CustomerController(MainController main) {
+	public CustomerController(MainController main, GUIPane mainGUI) {
+		
+		this.mainGUI = mainGUI;
+		
 		this.main = main;
 
-		customerChoicesMenu = new CustomerMenuGUI();
-		customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
-		customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
-		customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
-		customerChoicesMenu.addReturnToMainMenuListener(new ReturnToMainMenuListener());
+		addCustomerMenu = new AddCustomerGUI();
+		
+		setCustomerChoicesMenu(new CustomerMenuGUI());
+		getCustomerChoicesMenu().addViewCustomerListener(new ViewCustomerListener());
+		getCustomerChoicesMenu().addEditCustomerListener(new EditCustomerListener());
+		getCustomerChoicesMenu().addAddCustomerListener(new AddCustomerListener());
+		getCustomerChoicesMenu().addReturnToMainMenuListener(new ReturnToMainMenuListener());
+		
+	}
+
+	public CustomerMenuGUI getCustomerChoicesMenu() {
+		return customerChoicesMenu;
+	}
+
+	public void setCustomerChoicesMenu(CustomerMenuGUI customerChoicesMenu) {
+		this.customerChoicesMenu = customerChoicesMenu;
 	}
 
 	private class ViewCustomerListener implements ActionListener {
@@ -55,26 +67,34 @@ public class CustomerController {
 				accessLevel = 2;
 			} 
 
-			customerChoicesMenu.dispose();
-			customerChoicesMenu = null;
+			
 			viewCustomerMenu = new ViewCustomerGUI(main.getCustomer(), accessLevel);
 			viewCustomerMenu.addReturnToCustomerMenuFromViewListener(new ReturnToCustomerMenuFromViewListener());
+			
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			viewCustomerMenu.paintComponents(mainGUI.getGraphics());
+			mainGUI.getContentPane().add(viewCustomerMenu);
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
 		}
 	}
 	private class ReturnToCustomerMenuFromViewListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// erase/dispose of car menu
-			viewCustomerMenu.dispose();
-			viewCustomerMenu = null;
 
-			// go back to main menu 
-			customerChoicesMenu = new CustomerMenuGUI();
-			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
-			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
-			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
-			customerChoicesMenu.addReturnToMainMenuListener(new ReturnToMainMenuListener());
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getContentPane().add(mainGUI.getCustomerController().getCustomerChoicesMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
 		}
 
 	}
@@ -107,11 +127,19 @@ public class CustomerController {
 				return;
 			}
 
-			customerChoicesMenu.dispose();
-			customerChoicesMenu = null;
 			editCustomerMenu = new EditCustomerGUI(main.getCustomer(), accessLevel);
 			editCustomerMenu.addSubmitNewInformationListener(new SubmitNewInformationListener());
 			editCustomerMenu.addReturnToCustomerMenuFromEditListener(new ReturnToCustomerMenuFromEditListener());
+			
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			editCustomerMenu.paintComponents(mainGUI.getGraphics());
+			mainGUI.getContentPane().add(editCustomerMenu);
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
 		}
 	}
 	private class SubmitNewInformationListener implements ActionListener {
@@ -119,30 +147,51 @@ public class CustomerController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (
-				editCustomerMenu.getEmailField().isBlank() ||
-				editCustomerMenu.getPhoneNumberField().isBlank() || 
-				editCustomerMenu.getBillingAddressField().isBlank() ||
-				editCustomerMenu.getCardNumberField().isBlank() ||
-				editCustomerMenu.getCardExpiryDateField().isBlank() ||
-				editCustomerMenu.getGenderField().isBlank() || 
+				editCustomerMenu.getEmailField().isBlank() &&
+				editCustomerMenu.getPhoneNumberField().isBlank() && 
+				editCustomerMenu.getBillingAddressField().isBlank() &&
+				editCustomerMenu.getCardNumberField().isBlank() &&
+				editCustomerMenu.getCardExpiryDateField().isBlank() &&
+				editCustomerMenu.getGenderField().isBlank() && 
 				editCustomerMenu.getGenderField().length() != 1
 			) {
 				JOptionPane.showMessageDialog(null, "Improper format for input(s)", "", JOptionPane.ERROR_MESSAGE);
 			} else {
 				Customer customer = main.getCustomer();
 
-				customer.setEmail(editCustomerMenu.getEmailField());
-				customer.setPhoneNumber(editCustomerMenu.getPhoneNumberField());
-				customer.setBillingAddress(editCustomerMenu.getBillingAddressField());
+				if(!editCustomerMenu.getEmailField().isBlank())
+					customer.setEmail(editCustomerMenu.getEmailField());
+				
+				if(!editCustomerMenu.getPhoneNumberField().isBlank())
+					customer.setPhoneNumber(editCustomerMenu.getPhoneNumberField());
+				
+				if(!editCustomerMenu.getBillingAddressField().isBlank())
+					customer.setBillingAddress(editCustomerMenu.getBillingAddressField());
+				
+				if(!editCustomerMenu.getCardNumberField().isBlank())
 				customer.setCardNumber(editCustomerMenu.getCardNumberField());
-				customer.setCardExpiryDate(editCustomerMenu.getCardExpiryDateField());
-				customer.setGender(editCustomerMenu.getGenderField().toCharArray()[0]);
+				
+				if(!editCustomerMenu.getCardExpiryDateField().isBlank())
+					customer.setCardExpiryDate(editCustomerMenu.getCardExpiryDateField());
+				
+				if(editCustomerMenu.getGenderField().compareTo("U") != 0)
+					customer.setGender(editCustomerMenu.getGenderField().toCharArray()[0]);
+				
 				if(!editCustomerMenu.getNotesField().isBlank()) {
 					customer.setNotes("\n\n" +editCustomerMenu.getNotesField());
 				}
 
 				DatabaseController.saveCustomer(main.getCustomer());
 			}
+			
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getContentPane().add(mainGUI.getCustomerController().getCustomerChoicesMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
 		}
 
 	}
@@ -150,16 +199,15 @@ public class CustomerController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// erase/dispose of car menu
-			editCustomerMenu.dispose();
-			editCustomerMenu = null;
 
-			// go back to main menu 
-			customerChoicesMenu = new CustomerMenuGUI();
-			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
-			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
-			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
-			customerChoicesMenu.addReturnToMainMenuListener(new ReturnToMainMenuListener());
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getContentPane().add(mainGUI.getCustomerController().getCustomerChoicesMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
 		}
 
 	}
@@ -171,12 +219,20 @@ public class CustomerController {
 				JOptionPane.showMessageDialog(null, "Invalid Access Level", "", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-
-			customerChoicesMenu.dispose();
-			customerChoicesMenu = null;
+			
 			addCustomerMenu = new AddCustomerGUI();
-			addCustomerMenu.addSubmitNewCustomerListener(new SubmitNewCustomerListener());
-			addCustomerMenu.addReturnToCustomerMenuButtonFromAddListener(new ReturnToCustomerMenuFromAddListener());
+			addCustomerMenu.getSubmitNewCustomerButton().addActionListener(new SubmitNewCustomerListener());
+			addCustomerMenu.getReturnToCustomerMenuButton().addActionListener(new ReturnToCustomerMenuFromAddListener());
+
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			addCustomerMenu.paintComponents(mainGUI.getGraphics());
+			mainGUI.getContentPane().add(addCustomerMenu);
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
 		}
 	}
 	private class SubmitNewCustomerListener implements ActionListener {
@@ -222,29 +278,30 @@ public class CustomerController {
 				DatabaseController.addCustomer(customer);
 			}
 			
-			editCustomerMenu.dispose();
-			editCustomerMenu = null;
-
-			customerChoicesMenu = new CustomerMenuGUI();
-			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
-			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
-			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getContentPane().add(mainGUI.getCustomerController().getCustomerChoicesMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
 		}
 	}
+	
 	private class ReturnToCustomerMenuFromAddListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// erase/dispose of car menu
-			addCustomerMenu.dispose();
-			addCustomerMenu = null;
 
-			// go back to main menu 
-			customerChoicesMenu = new CustomerMenuGUI();
-			customerChoicesMenu.addEditCustomerListener(new EditCustomerListener());
-			customerChoicesMenu.addAddCustomerListener(new AddCustomerListener());
-			customerChoicesMenu.addViewCustomerListener(new ViewCustomerListener());
-			customerChoicesMenu.addReturnToMainMenuListener(new ReturnToMainMenuListener());
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getContentPane().add(mainGUI.getCustomerController().getCustomerChoicesMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
 		}
 
 	}
@@ -253,12 +310,15 @@ public class CustomerController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            // erase/dispose of car menu
-            customerChoicesMenu.dispose();
-			customerChoicesMenu = null;
-
-            // go back to main menu 
-			new MainController(main.getSalesperson());
+        	mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getMainController().getMainMenu().paintComponents(mainGUI.getGraphics());
+			mainGUI.getContentPane().add(mainGUI.getMainController().getMainMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
         }
     }
 

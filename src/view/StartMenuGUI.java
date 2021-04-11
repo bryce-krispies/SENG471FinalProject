@@ -1,6 +1,7 @@
 
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,7 +20,6 @@ import javax.swing.JTextField;
 public class StartMenuGUI extends JPanel{
 		
 		private Image image;
-		private JTextField title;
 		private JButton salespersonLogin;
 		private JButton quit;
 		
@@ -32,43 +32,38 @@ public class StartMenuGUI extends JPanel{
 				System.exit(1);
 			}
 			
-			title = new JTextField("Welcome to the CADA Car Customization System");
-			title.setHorizontalAlignment(JTextField.CENTER);
-			title.setBorder(BorderFactory.createBevelBorder(1, new Color(96,77,70), new Color(196,177,170)));
-			title.setDisabledTextColor(new Color(96,77,70));
-			title.setSize(46, 1);
-			title.setEnabled(false);
-			title.setFont(new Font("Serif", Font.BOLD, 35));
+			addFiller(370, "                                            ");
 			
-			this.add(title);
+			salespersonLogin = new JButton(" Salesperson Login ");
+			salespersonLogin.setBackground(new Color(200, 200, 200));
+			salespersonLogin.setBorder(BorderFactory.createStrokeBorder(new BasicStroke()));
+			salespersonLogin.setFont(new Font("Lucida Sans", Font.PLAIN, 30));
+			this.add(salespersonLogin);
 			
-			JTextArea filler = new JTextArea("                                ");
+			addFiller(30, "                                  "
+					+ "                                                     ");
+
+			
+			quit = new JButton(" Quit ");
+			quit.setBackground(new Color(200, 200, 200));
+			quit.setBorder(BorderFactory.createStrokeBorder(new BasicStroke()));
+			quit.setFont(new Font("Lucida Sans", Font.PLAIN, 30));
+			this.add(quit);
+			
+			addFiller(30, "                                      "
+					+ "                         "
+					+ "                                                ");
+			
+		}
+		
+		public void addFiller(int size, String len){
+			
+			JTextArea filler = new JTextArea(len);
 			filler.setSize(new Dimension(46, 5));
-			filler.setFont(new Font("Serif", Font.BOLD, 100));
+			filler.setFont(new Font("Serif", Font.BOLD, size));
 			filler.setEnabled(false);
 			filler.setOpaque(false);
 			this.add(filler);
-			
-			setSalespersonLogin(new JButton("Salesperson Login"));
-			getSalespersonLogin().setBackground(new Color(213, 183, 147));
-			getSalespersonLogin().setFont(new Font("Serif", Font.BOLD, 20));
-			this.add(getSalespersonLogin());
-			
-			JTextArea fillerTwo = new JTextArea("                        "
-					+ "                                                  "
-					+ "                                                  ");
-			fillerTwo.setSize(new Dimension(46, 5));
-			fillerTwo.setFont(new Font("Serif", Font.BOLD, 30));
-			fillerTwo.setEnabled(false);
-			fillerTwo.setOpaque(false);
-			this.add(fillerTwo);
-			
-			quit = new JButton("Quit");
-			quit.setBackground(new Color(213, 183, 147));
-			quit.setFont(new Font("Serif", Font.BOLD, 20));
-			this.add(quit);
-			
-			
 			
 		}
 		
