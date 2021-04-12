@@ -1,10 +1,15 @@
 package controller;
 import model.*;
 import view.CustomizeCarGUI;
+import view.GUIPane;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.*;
 
 /**
@@ -18,89 +23,84 @@ import java.awt.event.*;
  * 
  * Also look at the private class ChooseCustomizeCarGUI within MainController.java to see how we get to VehicleCustomizationController
  */
-class VehicleCustomizationController {
+public class VehicleCustomizationController {
 
     private MainController main;
+    private GUIPane mainGUI;
 	private CustomizeCarGUI customizeCarMenu;
     private String modelSelected;
     private String exteriorColourSelected;
     private String interiorColourSelected;
     private String viewSelected;
+    private String picLocation;
 
-    public VehicleCustomizationController(MainController main) {
+    public VehicleCustomizationController(MainController main, GUIPane mainGUI) {
+    	
+    	this.mainGUI = mainGUI;
+    	
         this.main = main;
         modelSelected = null;
         exteriorColourSelected = null;
         interiorColourSelected = null;
         viewSelected = null;
 
-        customizeCarMenu = new CustomizeCarGUI();
+        setCustomizeCarMenu(new CustomizeCarGUI());
         //add all other button listeners (like SelectInteriorColour, SelectModel, etc.)
 
-        customizeCarMenu.addSelectCarModelListener(new SelectCarModelListener());
-        customizeCarMenu.addSelectExteriorColourListener(new SelectExteriorColourListener());
-        customizeCarMenu.addSelectInteriorColourListener(new SelectInteriorColourListener());
-        customizeCarMenu.addSelectViewListener(new SelectViewListener());
-        customizeCarMenu.addSaveCarModelListener(new SaveCarModelListener());
-        customizeCarMenu.addReturnToMainMenuListener(new ReturnToMainMenuListener());
+        getCustomizeCarMenu().addSelectCarModelListener(new SelectCarModelListener());
+        getCustomizeCarMenu().addSelectExteriorColourListener(new SelectExteriorColourListener());
+        getCustomizeCarMenu().addSelectInteriorColourListener(new SelectInteriorColourListener());
+        getCustomizeCarMenu().addSelectViewListener(new SelectViewListener());
+        getCustomizeCarMenu().addSaveCarModelListener(new SaveCarModelListener());
+        getCustomizeCarMenu().addReturnToMainMenuListener(new ReturnToMainMenuListener());
     }
 
     public void updateCarView() {
-        if(modelSelected != null && exteriorColourSelected != null && interiorColourSelected != null && viewSelected != null) {
-            String fileName = "";
-            if(modelSelected == "Mustang") {
-                modelSelected = modelSelected.toLowerCase();
-            }
-            if(viewSelected == "Interior") {
-                viewSelected = "int";
-            }
-            if(modelSelected == "MKZ") {
-                if (viewSelected == "dash" || viewSelected == "int") {
-                    fileName = "resources\\" + modelSelected + "_" + viewSelected.toLowerCase() + "_null_" + interiorColourSelected.toLowerCase() + ".png";
-                } else {
-                    fileName = "resources\\" + modelSelected + "_" + viewSelected.toLowerCase() + "_" + exteriorColourSelected.toLowerCase() + "_null.png";
-                }
-            }
-            else{
-                if (viewSelected == "dash" || viewSelected == "int") {
-                    fileName = "resources\\" + modelSelected + "_" + viewSelected.toLowerCase() + "_" + exteriorColourSelected.toLowerCase() + "_" + interiorColourSelected.toLowerCase() + ".png";
-                } else {
-                    fileName = "resources\\" + modelSelected + "_" + viewSelected.toLowerCase() + "_" + exteriorColourSelected.toLowerCase() + "_null.png";
-                }
-            }
-            customizeCarMenu.displayCarView(DatabaseController.getCarImage(fileName));
-        }
+        
+            getCustomizeCarMenu().displayCarView(DatabaseController.getCarImage(picLocation));
+            
     }
 
-    private class SelectCarModelListener implements ListSelectionListener {
+    public CustomizeCarGUI getCustomizeCarMenu() {
+		return customizeCarMenu;
+	}
+
+	public void setCustomizeCarMenu(CustomizeCarGUI customizeCarMenu) {
+		this.customizeCarMenu = customizeCarMenu;
+	}
+
+	private class SelectCarModelListener implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent listSelectionEvent) {
-            if(customizeCarMenu.getModelSelection() != modelSelected) {
-                modelSelected = customizeCarMenu.getModelSelection();
-                updateCarView();
-
-                customizeCarMenu.exteriorColoursList.setVisible(true);
-
-                //TODO: fix interior colour selection
-                /*if(modelSelected == "MKZ") {
-                    customizeCarMenu.interiorColoursList = new JList(new String[]{"Black", "Tan", "Brown"});
-                }
-                else {
-                    customizeCarMenu.interiorColoursList = new JList(new String[]{"Black", "White", "Tan"});
-                }*/
-                customizeCarMenu.interiorColoursList.setVisible(true);
-
-                customizeCarMenu.viewList.setVisible(true);
-            }
+        	
+        	modelSelected = getCustomizeCarMenu().getModelSelection();
+        	
+        	customizeCarMenu.resetButtonsFull();
+        	
+        	customizeCarMenu.exteriorColoursList.setListData(new String[]{"White", "Black", "Blue", "Red", "Grey"});
+    		
+        	if(modelSelected.compareTo("MKZ") == 0)
+        		customizeCarMenu.interiorColoursList.setListData(new String[]{"Black", "Beige", "Brown"});
+        	else
+        		customizeCarMenu.interiorColoursList.setListData(new String[]{"Black", "White", "Tan"});
+        	
         }
     }
 
     private class SelectExteriorColourListener implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent listSelectionEvent) {
-            if(customizeCarMenu.getExteriorColourSelection() != exteriorColourSelected) {
-                exteriorColourSelected = customizeCarMenu.getExteriorColourSelection();
-                updateCarView();
+        	
+            if(getCustomizeCarMenu().getModelSelection() != null && 
+            		getCustomizeCarMenu().getInteriorColourSelection() != null) {
+
+            	customizeCarMenu.resetButtonsPart();
+            	
+            	exteriorColourSelected = getCustomizeCarMenu().getExteriorColourSelection();
+            	interiorColourSelected = getCustomizeCarMenu().getInteriorColourSelection();
+            	
+            	getCustomizeCarMenu().viewList.setListData(new String[]{"Front", "Back", "Dash", "Interior"});
+                
             }
         }
     }
@@ -108,9 +108,17 @@ class VehicleCustomizationController {
     private class SelectInteriorColourListener implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent listSelectionEvent) {
-            if(customizeCarMenu.getInteriorColourSelection() != interiorColourSelected) {
-                interiorColourSelected = customizeCarMenu.getInteriorColourSelection();
-                updateCarView();
+        	
+        	if(getCustomizeCarMenu().getModelSelection() != null && 
+        			getCustomizeCarMenu().getExteriorColourSelection() != null) {
+
+        		customizeCarMenu.resetButtonsMin();
+        		
+        		exteriorColourSelected = getCustomizeCarMenu().getExteriorColourSelection();
+            	interiorColourSelected = getCustomizeCarMenu().getInteriorColourSelection();
+        		
+            	getCustomizeCarMenu().viewList.setListData(new String[]{"Front", "Back", "Dash", "Interior"});
+                
             }
         }
     }
@@ -118,10 +126,21 @@ class VehicleCustomizationController {
     private class SelectViewListener implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent listSelectionEvent) {
-            if(customizeCarMenu.getViewSelection() != viewSelected) {
-                viewSelected = customizeCarMenu.getViewSelection();
-                updateCarView();
-            }
+        	
+        	if(getCustomizeCarMenu().getModelSelection() != null &&
+        			getCustomizeCarMenu().getExteriorColourSelection() != null &&
+        			getCustomizeCarMenu().getInteriorColourSelection() != null &&
+        			getCustomizeCarMenu().getViewSelection() != null) {
+        		viewSelected = getCustomizeCarMenu().getViewSelection();
+
+        		picLocation = "resources\\" + modelSelected + 
+        				"\\" + interiorColourSelected + "\\" + 
+        			exteriorColourSelected +
+        			"\\" + viewSelected.toLowerCase() + ".png";
+        		
+        	updateCarView();
+        	
+        	}
         }
     }
 
@@ -150,12 +169,16 @@ class VehicleCustomizationController {
             main.getCustomer().setDesiredVehicle(main.getVehicle());
             DatabaseController.saveCustomer(main.getCustomer());
 
-            // erase/dispose of car menu
-            customizeCarMenu.dispose();
-			customizeCarMenu = null;
+            mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			
+			mainGUI.getContentPane().add(mainGUI.getVehicleController().getCustomizeCarMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
 
-            // go back to main menu 
-			//new MainController(main.getSalesperson());
+            
         }
 
     }
@@ -165,12 +188,14 @@ class VehicleCustomizationController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            // erase/dispose of car menu
-            customizeCarMenu.dispose();
-			customizeCarMenu = null;
-
-            // go back to main menu 
-			//new MainController(main.getSalesperson());
+        	mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getContentPane().add(mainGUI.getMainController().getMainMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			mainGUI.update(mainGUI.getGraphics());
+			
         }
 
     }

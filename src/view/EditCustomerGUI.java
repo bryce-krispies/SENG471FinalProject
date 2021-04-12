@@ -93,6 +93,8 @@ public class EditCustomerGUI extends JPanel {
 		add(cardExpiryDateLabel);
 		add(cardExpiryDateField);
 
+		makePageBreak();
+		
 		JLabel records = new JLabel("Records: ");
 		records.setFont(new Font("Lucida Sans", Font.PLAIN, 30));
 		add(records);
@@ -111,15 +113,21 @@ public class EditCustomerGUI extends JPanel {
 		add(notesField);
 		
 		addNewVisitButton = new JButton("Add New Visit");
+		addNewVisitButton.setBackground(new Color(163, 175, 175));
+		addNewVisitButton.setFont(new Font("Lucida Sans", Font.PLAIN, 20));
 		addNewVisitButton.addActionListener(new AddNewVisitListener());
 		add(addNewVisitButton);
 
 		makePageBreak();
 		
 		submitNewInformationButton = new JButton("Submit");
+		submitNewInformationButton.setBackground(new Color(163, 175, 175));
+		submitNewInformationButton.setFont(new Font("Lucida Sans", Font.PLAIN, 20));
 		add(submitNewInformationButton);
 
 		returnToCustomerMenuButton = new JButton("Return To Customer Menu");
+		returnToCustomerMenuButton.setBackground(new Color(163, 175, 175));
+		returnToCustomerMenuButton.setFont(new Font("Lucida Sans", Font.PLAIN, 20));
 		add(returnToCustomerMenuButton);
 	}
 

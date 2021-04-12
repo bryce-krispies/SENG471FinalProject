@@ -19,35 +19,85 @@ import javax.swing.event.ListSelectionListener;
  * Also you determine the overall look, and I'll model the rest of the guis after yours
  * Just make sure they follow what the TAs said about the gui
  */
-public class CustomizeCarGUI extends JFrame {
+@SuppressWarnings("serial")
+public class CustomizeCarGUI extends JPanel {
 	private JButton saveCarModelButton, returnToMainMenuButton;
-	public JList modelsList, exteriorColoursList, interiorColoursList, viewList;
+	public JList<String> modelsList, exteriorColoursList, interiorColoursList, viewList;
+	private JLabel carImage;
+	private Image image;
 
 	public CustomizeCarGUI() {
-		super("Customize Car");
-		setUndecorated(true);
-		setSize(750, 500); //I think this is a good size but change it if ya want
-		setLocationRelativeTo(null);
-		setLayout(new GridLayout(1, 2));
 
-		modelsList = new JList(new String[]{"MKZ", "Mustang"});
+			
+		addFiller(330, "");
+		
+		carImage  = new JLabel();
+		carImage.setPreferredSize(new Dimension(600, 279));
+		add(carImage);
+		
+		makePageBreak();
+		
+		try {
+			image = ImageIO.read(new File("resources\\Customization_Background.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		
+		makePageBreak();
+		
+		JLabel types = new JLabel("Model          Exterior         Interior           View  ");
+		types.setFont(new Font("Lucida Sans", Font.PLAIN, 15));
+		types.setBackground(Color.DARK_GRAY);
+		types.setForeground(Color.LIGHT_GRAY);
+		add(types);
+		
+		makePageBreak();
+		
+		modelsList = new JList<String>(new String[]{"MKZ", "Mustang"});
+		modelsList.setFont(new Font("Lucida Sans", Font.PLAIN, 15));
+		modelsList.setPreferredSize(new Dimension(80,113));
+		modelsList.setBackground(Color.DARK_GRAY);
+		modelsList.setForeground(Color.LIGHT_GRAY);
 		add(modelsList);
 
-		exteriorColoursList = new JList(new String[]{"White", "Black", "Blue", "Red", "Grey"});
+		
+		exteriorColoursList = new JList<String>();
+		exteriorColoursList.setFont(new Font("Lucida Sans", Font.PLAIN, 15));
+		exteriorColoursList.setPreferredSize(new Dimension(80,113));
+		exteriorColoursList.setBackground(Color.DARK_GRAY);
+		exteriorColoursList.setForeground(Color.LIGHT_GRAY);
 		add(exteriorColoursList);
-		exteriorColoursList.setVisible(false);
+		exteriorColoursList.setVisible(true);
 
-		interiorColoursList = new JList(new String[]{"Black", "White", "Tan"});
+		interiorColoursList = new JList<String>();
+		interiorColoursList.setFont(new Font("Lucida Sans", Font.PLAIN, 15));
+		interiorColoursList.setPreferredSize(new Dimension(80,113));
+		interiorColoursList.setBackground(Color.DARK_GRAY);
+		interiorColoursList.setForeground(Color.LIGHT_GRAY);
 		add(interiorColoursList);
-		interiorColoursList.setVisible(false);
+		interiorColoursList.setVisible(true);
 
-		viewList = new JList(new String[]{"Front", "Back", "Dash", "Interior"});
+		
+		viewList = new JList<String>();
+		viewList.setFont(new Font("Lucida Sans", Font.PLAIN, 15));
+		viewList.setPreferredSize(new Dimension(80,113));
+		viewList.setBackground(Color.DARK_GRAY);
+		viewList.setForeground(Color.LIGHT_GRAY);
 		add(viewList);
-		viewList.setVisible(false);
-
+		viewList.setVisible(true);
+		
+		makePageBreak();
+		
 		saveCarModelButton = new JButton("Save Car Model");
+		saveCarModelButton.setFont(new Font("Lucida Sans", Font.PLAIN, 15));
+		saveCarModelButton.setBackground(Color.DARK_GRAY);
+		saveCarModelButton.setForeground(Color.LIGHT_GRAY);
 		add(saveCarModelButton);
-		returnToMainMenuButton=new JButton("Return To Main Menu");
+		returnToMainMenuButton = new JButton("Return To Main Menu");
+		returnToMainMenuButton.setFont(new Font("Lucida Sans", Font.PLAIN, 15));
+		returnToMainMenuButton.setBackground(Color.DARK_GRAY);
+		returnToMainMenuButton.setForeground(Color.LIGHT_GRAY);
 		add(returnToMainMenuButton);
 
 		setVisible(true);
@@ -93,8 +143,90 @@ public class CustomizeCarGUI extends JFrame {
 		return (String) viewList.getSelectedValue();
 	}
 
-	public void displayCarView(File carImage) {
-		// Display image on page
+	public void displayCarView(File newCarImage) {
+
+		try {
+			BufferedImage one = (ImageIO.read(newCarImage));
+			Image two = one.getScaledInstance(600, 279, Image.SCALE_SMOOTH);
+			carImage.setIcon(new ImageIcon(two));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void addFiller(int size, String fill) {
+		
+		JTextArea filler = new JTextArea(fill);
+		filler.setSize(new Dimension(46, 5));
+		filler.setFont(new Font("Serif", Font.BOLD, size));
+		filler.setEnabled(false);
+		filler.setOpaque(false);
+		this.add(filler);
+		
+	}
+	
+	public void makePageBreak() {
+		
+		addFiller(3, "                                   "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      "
+				+ "                                      ");
+		
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		
+		g.drawImage(image, 0, 0, null);
+		
+	}
+
+	public void resetButtonsFull() {
+
+		exteriorColoursList.clearSelection();
+		interiorColoursList.clearSelection();
+		viewList.clearSelection();
+		carImage.setIcon(null);
+		
+	}
+	
+	public void resetButtonsPart() {
+
+		interiorColoursList.clearSelection();
+		viewList.clearSelection();
+		carImage.setIcon(null);
+		
+	}
+	
+	public void resetButtonsMin() {
+
+		viewList.clearSelection();
+		carImage.setIcon(null);
+		
 	}
 
 }

@@ -71,10 +71,16 @@ public class MainController {
 				return;
 			}
 
-			//mainMenu.dispose();
-			//mainMenu = null;
-
-			new VehicleCustomizationController(main);
+			mainGUI.setVehicleController(new VehicleCustomizationController(main, mainGUI));
+			
+			mainGUI.getContentPane().removeAll();
+			mainGUI.getContentPane().invalidate();
+			
+			mainGUI.getVehicleController().getCustomizeCarMenu().paintComponents(mainGUI.getGraphics());
+			mainGUI.getContentPane().add(mainGUI.getVehicleController().getCustomizeCarMenu());
+			mainGUI.getContentPane().revalidate();
+			
+			
 		}
 	}
 
