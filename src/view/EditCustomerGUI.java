@@ -6,9 +6,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import controller.MainController;
 
 public class EditCustomerGUI extends JPanel {
 
@@ -18,9 +21,12 @@ public class EditCustomerGUI extends JPanel {
 	private JButton submitNewInformationButton, addNewVisitButton, returnToCustomerMenuButton;
 	private boolean newVisitButtonPressed;
 	private Image image;
+	private MainController main;
 
-	public EditCustomerGUI(Customer customer, int accessLevel) {
+	public EditCustomerGUI(Customer customer, int accessLevel, MainController main) {
 
+		this.main = main;
+		
 		try {
 			image = ImageIO.read(new File("resources\\Customer_Background.jpg"));
 		} catch (IOException e) {
@@ -233,11 +239,12 @@ public class EditCustomerGUI extends JPanel {
 	private class AddNewVisitListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(newVisitButtonPressed) {
+			if(isNewVisitButtonPressed()) {
 				JOptionPane.showMessageDialog(null, "New Visit Already Recorded", "", JOptionPane.ERROR_MESSAGE);
 			} else {
-				newVisitButtonPressed = true;
+				setNewVisitButtonPressed(true);
 				JOptionPane.showMessageDialog(null, "New Visit Recorded", "", JOptionPane.INFORMATION_MESSAGE);
+				main.getCustomer().addVisitToVisitHistory(LocalDate.now());
 			}
 		}
 		
@@ -250,6 +257,14 @@ public class EditCustomerGUI extends JPanel {
 	public String getCardExpiryDateField() { return cardExpiryDateField.getText().trim(); }
 	public String getGenderField() { return genderFieldComboBox.getSelectedItem().toString().trim();}
 	public String getNotesField() { return notesField.getText().trim(); }
-	public boolean getNewVisitButtonPressed() { return newVisitButtonPressed; }
+	public boolean getNewVisitButtonPressed() { return isNewVisitButtonPressed(); }
+
+	public boolean isNewVisitButtonPressed() {
+		return newVisitButtonPressed;
+	}
+
+	public void setNewVisitButtonPressed(boolean newVisitButtonPressed) {
+		this.newVisitButtonPressed = newVisitButtonPressed;
+	}
 	
 }

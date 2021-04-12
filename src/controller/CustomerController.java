@@ -127,7 +127,7 @@ public class CustomerController {
 				return;
 			}
 
-			editCustomerMenu = new EditCustomerGUI(main.getCustomer(), accessLevel);
+			editCustomerMenu = new EditCustomerGUI(main.getCustomer(), accessLevel, main);
 			editCustomerMenu.addSubmitNewInformationListener(new SubmitNewInformationListener());
 			editCustomerMenu.addReturnToCustomerMenuFromEditListener(new ReturnToCustomerMenuFromEditListener());
 			
